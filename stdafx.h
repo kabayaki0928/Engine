@@ -16,6 +16,7 @@
 #include <memory>
 #include <math.h>
 #include <stdlib.h>
+#include <functional>
 
 #define GLFW_INCLUDE_VULKAN
 #define GLM_FORCE_RADIANS

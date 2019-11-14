@@ -37,8 +37,8 @@ namespace vengine
 
         VkShaderModule module;
         ShaderModule shader_module = {};
-        createShaderModule(graphics_backend_, buffer, shader_module);
-        createShaderStage(file_name, ShaderStageType::Vertex, shader_module);
+        ShaderLoader::createShaderModule(graphics_backend_, buffer, shader_module);
+        ShaderLoader::createShaderStage(file_name, ShaderStageType::Vertex, shader_module);
 
         auto out_shader_module = std::make_shared<VertexShaderModule>(shader_module);
 
@@ -56,8 +56,8 @@ namespace vengine
 
         VkShaderModule module = {};
         ShaderModule shader_module = {};
-        createShaderModule(graphics_backend_, buffer, shader_module);
-        createShaderStage(file_name, ShaderStageType::Fragment, shader_module);
+        ShaderLoader::createShaderModule(graphics_backend_, buffer, shader_module);
+        ShaderLoader::createShaderStage(file_name, ShaderStageType::Fragment, shader_module);
 
         auto out_shader_module = std::make_shared<FragmentShaderModule>(shader_module);
 

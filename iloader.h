@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 namespace rengine
 {
     /// <summary>
@@ -12,7 +14,7 @@ namespace rengine
     public:
         ~ILoader() {}
 
-        template<typedef T>
+        template<typename T>
         void load(const char* file_name, std::function<void(T)> callback) = 0;
     };
 } // rengine

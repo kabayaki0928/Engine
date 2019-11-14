@@ -3,6 +3,7 @@
 namespace vengine
 {
     class Shader;
+    enum ShaderStageType;
     struct ShaderModule;
     class VulkanGraphicsBackend;
 

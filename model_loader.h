@@ -4,9 +4,11 @@
 
 namespace vengine
 {
-    class Model;
-    class Vertex;
+    namespace rengine {
+        class Model;
+    }
     class DrawableBuffer;
+    class Vertex;
 
     namespace {
         typedef struct RawData {
@@ -30,7 +32,7 @@ namespace vengine
     public:
         ModelLoader() {}
         ~ModelLoader() {}
-        void load(const char* file_name, std::function<void(std::shared_ptr<Model>)>);
+        void load(const char* file_name, std::function<void(std::shared_ptr<rengine::Model>)>);
     };
 
 } // rengine

@@ -44,7 +44,7 @@ namespace vengine
     /// <param name="file_name">ファイル名</param>
     /// <param name="callback">読み込み完了後に呼び出されるコールバック</param>
     template<>
-    void SimpleLoader::load(const char* file_name, std::function<void(std::shared_ptr<Model>)> callback) {
+    void SimpleLoader::load(const char* file_name, std::function<void(std::shared_ptr<rengine::Model>)> callback) {
         model_loader_->load(file_name, callback);
     }
 

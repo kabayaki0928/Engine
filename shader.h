@@ -44,23 +44,23 @@ namespace vengine
     {
     private:
         std::shared_ptr<VulkanGraphicsBackend> graphics_backend_;
-        VertexShaderModule vertex_;
-        FragmentShaderModule fragment_;
+        std::shared_ptr<VertexShaderModule> vertex_;
+        std::shared_ptr<FragmentShaderModule> fragment_;
     public:
         Shader
         (
             std::shared_ptr<VulkanGraphicsBackend> const graphics_backend,
-            const std::string& vertex_shader_path,
-            const std::string& fragment_shader_name
+            std::shared_ptr<VertexShaderModule> vertex,
+            std::shared_ptr<FragmentShaderModule> fragment
         );
         ~Shader();
 
         inline const ShaderModule& getVertexShaderModule() const noexcept {
-            return vertex_;
+            return vertex_->module_;
         }
 
         inline const ShaderModule& getFragmentShaderModule() const noexcept {
-            return fragment_;
+            return fragment_->module_;
         }
     };
 } // vengine

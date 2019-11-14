@@ -11,7 +11,7 @@ namespace vengine
     /// </summary>
     /// <param name="file_name"></param>
     /// <param name="callback"></param>
-    void ModelLoader::load(const char* file_name, std::function<void(std::shared_ptr<Model>)> callback) {
+    void ModelLoader::load(const char* file_name, std::function<void(std::shared_ptr<rengine::Model>)> callback) {
         
         // TODO キャッシュ系の機能 
 
@@ -22,7 +22,7 @@ namespace vengine
         distinctVertex(raw_data);
         createDrawableBuffer(raw_data, drawable_buffer);
 
-        auto model = std::make_shared<Model>(drawable_buffer, nullptr);
+        auto model = std::make_shared<rengine::Model>(drawable_buffer, nullptr);
 
         // TODO 破棄管理系の何かに追加
         // キャッシュ側でもよい…？
