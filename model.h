@@ -1,8 +1,6 @@
 #ifndef MODELH
 #define MODELH
 
-#include "iloadable_resource.h"
-
 namespace rengine
 {
     class DrawableBuffer;

@@ -2,6 +2,8 @@
 
 namespace vengine
 {
+    struct VkPipelineShaderStageCreateInfo;
+
     class ModelPipelineBuilder
     {
     public:
@@ -10,7 +12,7 @@ namespace vengine
 
         void createModelInfo
         (
-            VkPipelineShaderStageCreateInfo[] & out_shader_stage,
+            VkPipelineShaderStageCreateInfo[]& out_shader_stage
         );
         void createUniformBuffers();
     };

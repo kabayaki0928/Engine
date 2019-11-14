@@ -85,7 +85,7 @@ namespace vengine
         create_info.imageArrayLayers = 1;
         create_info.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
-        auto indices = QueueFamily::findQueueFamilies(physicalDevice, surface);
+        QueueFamilyIndices indices = QueueFamily::findQueueFamilies(physicalDevice, surface);
         uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
 
         if (indices.graphicsFamily != indices.presentFamily) {

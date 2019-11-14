@@ -2,6 +2,9 @@
 
 namespace vengine
 {
+    struct SwapChainSupportDetails;
+    struct QueueFamilyIndices;
+
     class QueueFamily final
     {
     public:

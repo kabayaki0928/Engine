@@ -41,7 +41,7 @@ namespace vengine
 
         VkAttachmentDescription depthAttachment = {};
         depthAttachment.format = depthFormat;
-        depthAttachment.samples = colorMsaaSamples;
+        depthAttachment.samples = depthMsaaSamples;
         depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
         depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
         depthAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
