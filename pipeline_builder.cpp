@@ -6,21 +6,6 @@ namespace vengine
     }
     RenderPipelineBuilder::~RenderPipelineBuilder() {
     }
-    void RenderPipelineBuilder::createRasterizationState(VkPipelineRasterizationStateCreateInfo& out_create_info) {
-        out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-        out_create_info.depthClampEnable = VK_FALSE;
-        out_create_info.rasterizerDiscardEnable = VK_FALSE;
-        out_create_info.polygonMode = VK_POLYGON_MODE_FILL;
-        out_create_info.lineWidth = 1.0f;
-        out_create_info.cullMode = VK_CULL_MODE_BACK_BIT;
-        out_create_info.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-        out_create_info.depthBiasEnable = VK_FALSE;
-    }
-    void RenderPipelineBuilder::createMultisampleState(const VkSampleCountFlagBits& msaa_samples, VkPipelineMultisampleStateCreateInfo& out_create_info) {
-        out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-        out_create_info.sampleShadingEnable = VK_FALSE;
-        out_create_info.rasterizationSamples = msaa_samples;
-    }
     void RenderPipelineBuilder::createDepthStencilState(VkPipelineDepthStencilStateCreateInfo& out_create_info) {
         out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
         out_create_info.depthTestEnable = VK_TRUE;
