@@ -24,10 +24,10 @@ namespace vengine
     /// https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkAttachmentDescription.html
     /// </summary>
     /// <param name="out_description"></param>
-    void RenderPassPipelineBuilder::buildColorAttachemntDescription(VkAttachmentDescription& out_description) {
+    void RenderPassPipelineBuilder::buildColorAttachemntDescription(const VkFormat& format, const VkSampleCountFlagBits& msaa_samples, VkAttachmentDescription& out_description) {
         // render targetの画像フォーマット
-        out_description.format = swapChainImageFormat;
-        out_description.samples = msaaSamples;
+        out_description.format = format;
+        out_description.samples = msaa_samples;
         // https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkAttachmentLoadOp.html
         // loadOp = 読み込み時に関すること
         // storeOp = 終わった後に関すること
@@ -45,9 +45,9 @@ namespace vengine
         // ※このフラグはVK_IMAGE_USAGE_COLOR_ATTACHMENT_BITで生成されている必要がある
         out_description.finalLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
     }
-    void RenderPassPipelineBuilder::buildDepthAttachmentDescription(VkAttachmentDescription& out_description) {
+    void RenderPassPipelineBuilder::buildDepthAttachmentDescription(const VkFormat& format, const VkSampleCountFlagBits& msaa_samples, VkAttachmentDescription& out_description) {
         out_description.format = VulkanUtils::findDepthFormat(graphics_backend_);
-        out_description.samples = msaaSamples;
+        out_description.samples = msaa_samples;
         out_description.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
         out_description.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
         out_description.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
@@ -55,8 +55,8 @@ namespace vengine
         out_description.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
         out_description.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
     }
-    void RenderPassPipelineBuilder::buildColorAttachmentResolve(VkAttachmentDescription& out_description) {
-        out_description.format = swapChainImageFormat;
+    void RenderPassPipelineBuilder::buildColorAttachmentResolve(const VkFormat& format, VkAttachmentDescription& out_description) {
+        out_description.format = format;
         out_description.samples = VK_SAMPLE_COUNT_1_BIT;
         out_description.loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
         out_description.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
@@ -125,9 +125,12 @@ namespace vengine
         VkSubpassDescription subpass_description = {};
         VkSubpassDependency subpass_dependency = {};
 
-        buildColorAttachemntDescription(color_attachment_description);
-        buildDepthAttachmentDescription(depth_attachment_description);
-        buildColorAttachmentResolve(color_attachment_resolve);
+        VkFormat format = graphics_backend_->getVulkanSwapchain().getSwapchainImageFormat();
+        VkSampleCountFlagBits msaa_samples = VK_SAMPLE_COUNT_1_BIT; // TODO フレームバッファ関連をまとめたら移動する
+
+        buildColorAttachemntDescription(format, msaa_samples, color_attachment_description);
+        buildDepthAttachmentDescription(format, msaa_samples, depth_attachment_description);
+        buildColorAttachmentResolve(format, color_attachment_resolve);
         buildSubpassDescription(subpass_description);
         buildSubpassDependency(subpass_dependency);
         buildRenderPass<3>
@@ -136,6 +139,6 @@ namespace vengine
             subpass_description,
             subpass_dependency,
             out_render_pass
-        );
+        ); VK_SAMPLE_COUNT_1_BIT
     }
 } // vengine

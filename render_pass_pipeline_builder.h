@@ -6,6 +6,7 @@
 namespace vengine
 {
     class VulkanGraphicsBackend;
+    class Camera;
 
     /// <summary>
     /// GraphicsRenderPipeline作成時に必要なRenderPassを構築する部分を担当するクラス
@@ -18,9 +19,9 @@ namespace vengine
         RenderPassPipelineBuilder(std::shared_ptr<VulkanGraphicsBackend> const graphics_backend);
         ~RenderPassPipelineBuilder();
 
-        void buildColorAttachemntDescription(VkAttachmentDescription& out_description);
-        void buildDepthAttachmentDescription(VkAttachmentDescription& out_description);
-        void buildColorAttachmentResolve(VkAttachmentDescription& out_description);
+        void buildColorAttachemntDescription(const VkFormat& format, const VkSampleCountFlagBits& msaa_samples, VkAttachmentDescription& out_description);
+        void buildDepthAttachmentDescription(const VkFormat& format, const VkSampleCountFlagBits& msaa_samples, VkAttachmentDescription& out_description);
+        void buildColorAttachmentResolve(const VkFormat& format, VkAttachmentDescription& out_description);
         void buildSubpassDescription(VkSubpassDescription& out_description);
         void buildSubpassDependency(VkSubpassDependency& out_dependency);
         template<int N>
