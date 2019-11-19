@@ -6,19 +6,19 @@ namespace vengine
 {
     /// <summary>
     /// シンプル(標準的な)なシェーダーパラメータ
+    /// 位置、色、uvを持つ
     /// </summary>
-    class SimpleShaderParameter final : IShaderParameter<3>
+    class SimpleShaderParameter final : IShaderParameter
     {
     private:
         VkVertexInputBindingDescription binding_;
-        std::array<VkVertexInputAttributeDescription, 3> attributes_;
+        VertexInputAttributeDescription attributes_;
 
     public:
         SimpleShaderParameter();
-        ~SimpleShaderParameter();
 
         virtual const VkVertexInputBindingDescription& getBindingDescription() const noexcept { return binding_; }
-        virtual const std::array<VkVertexInputAttributeDescription, 3> getAttributeDescription() const noexcept { return attributes_; }
+        virtual const VertexInputAttributeDescription& getAttributeDescription() const noexcept { return attributes_; }
     };
 } // vengine
 

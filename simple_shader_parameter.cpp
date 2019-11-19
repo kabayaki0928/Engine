@@ -1,5 +1,6 @@
 #include "simple_shader_parameter.h"
 
+#include "macro.h"
 #include "vertex.h"
 
 namespace vengine
@@ -9,19 +10,23 @@ namespace vengine
         binding_.stride = sizeof(Vertex);
         binding_.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 
-        attributes_[0].binding = 0;
-        attributes_[0].location = 0;
-        attributes_[0].format = VK_FORMAT_R32G32B32_SFLOAT;
-        attributes_[0].offset = offsetof(Vertex, pos);
+        auto attribute = attributes_.attribute_;
 
-        attributes_[1].binding = 0;
-        attributes_[1].location = 1;
-        attributes_[1].format = VK_FORMAT_R32G32B32_SFLOAT;
-        attributes_[1].offset = offsetof(Vertex, color);
+        attribute[0].binding = 0;
+        attribute[0].location = 0;
+        attribute[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+        attribute[0].offset = offsetof(Vertex, pos);
 
-        attributes_[2].binding = 0;
-        attributes_[2].location = 2;
-        attributes_[2].format = VK_FORMAT_R32G32_SFLOAT;
-        attributes_[2].offset = offsetof(Vertex, texCoord);
+        attribute[1].binding = 0;
+        attribute[1].location = 1;
+        attribute[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+        attribute[1].offset = offsetof(Vertex, color);
+
+        attribute[2].binding = 0;
+        attribute[2].location = 2;
+        attribute[2].format = VK_FORMAT_R32G32_SFLOAT;
+        attribute[2].offset = offsetof(Vertex, texCoord);
+
+        attributes_.length_ = COUNTOF(attribute);
     }
 } // vengine
