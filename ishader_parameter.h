@@ -4,7 +4,7 @@ namespace vengine
 {
     typedef struct VertexInputAttributeDescription {
         VkVertexInputAttributeDescription* attribute_;
-        int length_;
+        uint32_t length_;
     } VertexInputAttributeDescription;
 
     /// <summary>
