@@ -12,6 +12,7 @@
 
 #include "vulkan_graphics_backend.h"
 #include "command_buffer.h"
+#include "user_define.h"
 
 namespace vengine
 {
