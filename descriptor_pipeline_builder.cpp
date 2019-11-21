@@ -19,6 +19,12 @@ namespace vengine
         graphics_backend_ = nullptr;
     }
 
+    /// <summary>
+    /// 各パラメータのメモリ展開設定
+    /// どのパラメータをどのフェーズで使うかとか設定してる
+    /// </summary>
+    /// <param name="layouts"></param>
+    /// <param name="bindings"></param>
     void DescriptorPipelineBuilder::buildSetLayoutBinding(const DescriptorLayout layouts[], VkDescriptorSetLayoutBinding bindings[]) {
         
         auto length = COUNTOF(layouts);
@@ -40,12 +46,22 @@ namespace vengine
         bindings = tmp_bindings.data();
     }
     
+    /// <summary>
+    /// 各パラメータのメモリ展開設定構造体編
+    /// </summary>
+    /// <param name="bindings"></param>
+    /// <param name="out_create_info"></param>
     void DescriptorPipelineBuilder::buildSetLayoutInfo(const VkDescriptorSetLayoutBinding bindings[], VkDescriptorSetLayoutCreateInfo out_create_info) {
         out_create_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
         out_create_info.bindingCount = COUNTOF(bindings);
         out_create_info.pBindings = bindings;
     }
 
+    /// <summary>
+    /// 各パラメータのメモリ展開設定をもとに実際にbindingする
+    /// </summary>
+    /// <param name="layout_info"></param>
+    /// <param name="out_set_layout"></param>
     void DescriptorPipelineBuilder::buildSetLayout(const VkDescriptorSetLayoutCreateInfo& layout_info, VkDescriptorSetLayout& out_set_layout) {
         VkResult result = vkCreateDescriptorSetLayout(graphics_backend_->getLogicalDevice(), &layout_info, nullptr, &out_set_layout);
         if (result != VK_SUCCESS) {
@@ -53,6 +69,12 @@ namespace vengine
         }
     }
 
+    /// <summary>
+    /// パラメータのバインディングした情報をプールするための設定を作成
+    /// </summary>
+    /// <param name="pool_sizes"></param>
+    /// <param name="max_sets"></param>
+    /// <param name="out_create_info"></param>
     void DescriptorPipelineBuilder::buildPoolInfo(const DescriptorLayout pool_sizes[], uint32_t max_sets, VkDescriptorPoolCreateInfo& out_create_info) {
         int length = COUNTOF(pool_sizes);
         std::vector<VkDescriptorPoolSize> temp_pool_sizes(length);
@@ -68,6 +90,11 @@ namespace vengine
         out_create_info.pPoolSizes = temp_pool_sizes.data();
         out_create_info.maxSets = max_sets;
     }
+    /// <summary>
+    /// プール設定
+    /// </summary>
+    /// <param name="pool_info"></param>
+    /// <param name="out_descriptor_pool"></param>
     void DescriptorPipelineBuilder::buildPool(const VkDescriptorPoolCreateInfo& pool_info, VkDescriptorPool& out_descriptor_pool) {
         VkResult result = vkCreateDescriptorPool(graphics_backend_->getLogicalDevice(), &pool_info, nullptr, &out_descriptor_pool);
         if (result != VK_SUCCESS) {
@@ -75,6 +102,14 @@ namespace vengine
         }
     }
 
+    /// <summary>
+    /// 前工程までに作成したメモリに展開される各パラメータと
+    /// プール情報をもとにメモリを確保する設定を作る
+    /// </summary>
+    /// <param name="layout_size"></param>
+    /// <param name="set_layout"></param>
+    /// <param name="pool"></param>
+    /// <param name="sets"></param>
     void DescriptorPipelineBuilder::buildSets
     (
         const uint32_t layout_size,
@@ -97,6 +132,11 @@ namespace vengine
 
     }
 
+    /// <summary>
+    /// メモリ確保する設定をもとに実際に確保する
+    /// </summary>
+    /// <param name="max_sets"></param>
+    /// <param name="sets"></param>
     void DescriptorPipelineBuilder::writeDescriptorSet(uint32_t max_sets, DescriptorSetList sets) {
 
         for (const auto& descriptor_sets : sets) {
@@ -111,6 +151,14 @@ namespace vengine
         }
     }
 
+    /// <summary>
+    /// UniformBufferObject(位置 / 回転 / スケール等)の書き込み情報を作成する
+    /// </summary>
+    /// <param name="binding_idx"></param>
+    /// <param name="buffer"></param>
+    /// <param name="range"></param>
+    /// <param name="set"></param>
+    /// <returns></returns>
     VkWriteDescriptorSet DescriptorPipelineBuilder::createWriteUniformBufferInfo(uint32_t binding_idx, const VkBuffer& buffer, uint32_t range, const VkDescriptorSet& set) {
 
         VkDescriptorBufferInfo bufferInfo = {};
@@ -130,6 +178,14 @@ namespace vengine
         return descriptor_write;
     }
 
+    /// <summary>
+    /// Textureの書き込み情報を作成する
+    /// </summary>
+    /// <param name="binding_idx"></param>
+    /// <param name="image_view"></param>
+    /// <param name="sampler"></param>
+    /// <param name="set"></param>
+    /// <returns></returns>
     VkWriteDescriptorSet DescriptorPipelineBuilder::createWriteImageBufferInfo(uint32_t binding_idx, const VkImageView& image_view, const VkSampler& sampler, const VkDescriptorSet& set) {
 
         VkDescriptorImageInfo imageInfo = {};
@@ -149,6 +205,16 @@ namespace vengine
         return descriptor_write;
     }
 
+    /// <summary>
+    /// descriptorを設定する
+    /// 基本的な流れと機能は提供するが拡張性がないので、
+    /// 別途関数を表でくみ上げるのがよさげ
+    /// </summary>
+    /// <param name="swapchain_count"></param>
+    /// <param name="uniform_buffer_objects"></param>
+    /// <param name="range"></param>
+    /// <param name="image_view"></param>
+    /// <param name="sampler"></param>
     void DescriptorPipelineBuilder::buildSimpleDescriptor
     (
         uint32_t swapchain_count,
