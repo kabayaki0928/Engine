@@ -1,12 +1,27 @@
 #include "pipeline_builder.h"
 
+#include "vulkan_graphics_backend.h"
+
+#include "camera_pipeline_builder.h"
+#include "shader_pipeline_builder.h"
+#include "render_pass_pipeline_builder.h"
+#include "descriptor_pipeline_builder.h"
+
 namespace vengine
 {
-    PipelineBuilder::PipelineBuilder() {
+    PipelineBuilder::PipelineBuilder(std::shared_ptr<VulkanGraphicsBackend> const graphics_backend)
+    : camera_builder_(std::make_shared<CameraPipelineBuilder>()),
+      shader_builder_(std::make_shared<ShaderPipelineBuilder>()),
+      render_pass_builder_(std::make_shared<RenderPassPipelineBuilder>(graphics_backend)),
+      descriptor_builder_(std::make_shared<DescriptorPipelineBuilder>(graphics_backend)){
     }
     PipelineBuilder::~PipelineBuilder() {
+        camera_builder_ = nullptr;
+        shader_builder_ = nullptr;
+        render_pass_builder_ = nullptr;
+        descriptor_builder_ = nullptr;
     }
-    void PipelineBuilder::createDepthStencilState(VkPipelineDepthStencilStateCreateInfo& out_create_info) {
+    void PipelineBuilder::buildDepthStencilState(VkPipelineDepthStencilStateCreateInfo& out_create_info) {
         out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
         out_create_info.depthTestEnable = VK_TRUE;
         out_create_info.depthWriteEnable = VK_TRUE;
@@ -14,11 +29,11 @@ namespace vengine
         out_create_info.depthBoundsTestEnable = VK_FALSE;
         out_create_info.stencilTestEnable = VK_FALSE;
     }
-    void PipelineBuilder::createColorBlendAttachmentState(VkPipelineColorBlendAttachmentState& out_create_info) {
+    void PipelineBuilder::buildColorBlendAttachmentState(VkPipelineColorBlendAttachmentState& out_create_info) {
         out_create_info.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
         out_create_info.blendEnable = VK_FALSE;
     }
-    void PipelineBuilder::createColorBlendState(const VkPipelineColorBlendAttachmentState& color_blend_attachment, VkPipelineColorBlendStateCreateInfo& out_create_info) {
+    void PipelineBuilder::buildColorBlendState(const VkPipelineColorBlendAttachmentState& color_blend_attachment, VkPipelineColorBlendStateCreateInfo& out_create_info) {
         out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
         out_create_info.logicOpEnable = VK_FALSE;
         out_create_info.logicOp = VK_LOGIC_OP_COPY;
@@ -29,12 +44,12 @@ namespace vengine
         out_create_info.blendConstants[2] = 0.0f;
         out_create_info.blendConstants[3] = 0.0f;
     }
-    void PipelineBuilder::createPipelineLayout(const VkDescriptorSetLayout& layout, VkPipelineLayoutCreateInfo& out_create_info) {
+    void PipelineBuilder::buildPipelineLayout(const VkDescriptorSetLayout& layout, VkPipelineLayoutCreateInfo& out_create_info) {
         out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
         out_create_info.setLayoutCount = 1;
         out_create_info.pSetLayouts = &layout;
     }
-    void PipelineBuilder::createGraphicsPipeline(
+    void PipelineBuilder::buildGraphicsPipeline(
         const VkPipelineShaderStageCreateInfo*          stages,
         const VkPipelineVertexInputStateCreateInfo*     vertex_input_state,
         const VkPipelineInputAssemblyStateCreateInfo*   input_assembly_state,
