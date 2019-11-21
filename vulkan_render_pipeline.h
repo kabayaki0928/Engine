@@ -5,15 +5,18 @@
 namespace vengine
 {
     class VulkanGraphicsBackend;
+    class PipelineBuilder;
 
     class VulkanRenderPipeline final : public rengine::IRenderPipeline
     {
     private:
         const int MAX_FRAMES_IN_FLIGHT = 2;
         std::shared_ptr<VulkanGraphicsBackend> graphics_backend_;
+        std::unique_ptr<PipelineBuilder> pipeline_builder_;
 
-        VkPipelineLayout pipelineLayout;
-        VkPipeline graphicsPipeline;
+        VkPipelineLayout pipeline_layout_;
+        VkPipeline graphics_pipeline_;
+        VkRenderPass render_pass_;
         VkQueue graphics_queue_;
         VkQueue present_queue_;
         std::vector<VkFence> in_flight_fences_;

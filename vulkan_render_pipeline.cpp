@@ -1,21 +1,33 @@
 #include "vulkan_render_pipeline.h"
 
-#include "descriptor.h"
 #include "vulkan_graphics_backend.h"
 #include "vulkan_utils.h"
 #include "vertex.h"
-#include "viewport.h"
 #include "shader.h"
 #include "uniform_buffer.h"
 #include "queue_family.h"
 
+#include "mesh_renderer.h"
+#include "material.h"
+#include "camera.h"
+#include "swapchain.h"
+#include "shader.h"
+
+#include "pipeline_builder.h"
+#include "camera_pipeline_builder.h"
+#include "shader_pipeline_builder.h"
+#include "render_pass_pipeline_builder.h"
+#include "descriptor_pipeline_builder.h"
+
 namespace vengine
 {
-    VulkanRenderPipeline::VulkanRenderPipeline(std::shared_ptr<VulkanGraphicsBackend> const graphics_backend) {
-        graphics_backend_ = graphics_backend;
+    VulkanRenderPipeline::VulkanRenderPipeline(std::shared_ptr<VulkanGraphicsBackend> const graphics_backend)
+    : pipeline_builder_(std::make_unique<PipelineBuilder>(graphics_backend)),
+      graphics_backend_(graphics_backend) {
     }
 
     VulkanRenderPipeline::~VulkanRenderPipeline() {
+        graphics_backend_ = nullptr;
     }
 
     void VulkanRenderPipeline::initialize() {
@@ -23,83 +35,103 @@ namespace vengine
     }
 
     void VulkanRenderPipeline::createGraphicsPipeline() {
-        // リソースに対してヒモづいたほうがよさそう
-        auto shader = std::make_unique<Shader>(graphics_backend_, "shaders/vert.spv", "shaders/frag.spv");
-        auto descriptor = std::make_unique<Descriptor>(graphics_backend_);
-        auto viewport = std::make_unique<Viewport>();
+        /*
+        各シェーダー毎
+        シェーダー
+        シェーダーパラメータ
+        アセンブラ
+        TODO シェーダーが増えたタイミングでgraphics_pipelineを作り直す必要がある
+        シェーダーパラメータ
+        
+        layout(location = 0) in vec3 inPosition;
+        layout(location = 1) in vec3 inColor;
+        layout(location = 2) in vec2 inTexCoord;
+        のような頂点シェーダー側で宣言しているものたち
+        
+        が増えなければそのままでも可？
+        Unityのシェーダーwarmupとかはこれを事前に作っておく系かなと予想
+        pipelineの作成が重いとかならモデルから読み込むデータ群は共通化(Unityのapp_dataとか)する案もあり。
+        ただ1回 or 毎フレームと負荷のかかり方が変わっていくので計測してから判断
 
-        //auto vertShaderCode = readFile("shaders/vert.spv");
-        //auto fragShaderCode = readFile("shaders/frag.spv");
-        //
-        //VkShaderModule vertShaderModule = createShaderModule(vertShaderCode);
-        //VkShaderModule fragShaderModule = createShaderModule(fragShaderCode);
+        カメラ毎
+        フレームバッファ3枚(色 / depth / stencil)
+        レンダーパス
 
-        //VkPipelineShaderStageCreateInfo vertShaderStageInfo = {};
-        //vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        //vertShaderStageInfo.stage = VK_SHADER_STAGE_VERTEX_BIT;
-        //vertShaderStageInfo.module = vertShaderModule;
-        //vertShaderStageInfo.pName = "main";
-        //
-        //VkPipelineShaderStageCreateInfo fragShaderStageInfo = {};
-        //fragShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        //fragShaderStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
-        //fragShaderStageInfo.module = fragShaderModule;
-        //fragShaderStageInfo.pName = "main";
+        pipeline layout infoはどの単位で必要？
+        モデル毎？
 
-        VkPipelineShaderStageCreateInfo shaderStages[] = {
-            shader->getVertexShaderModule().create_info_,
-            shader->getFragmentShaderModule().create_info_, 
-        };
+        2 shader
+        2 camera
+        の場合
+        shaderStageに4つ入れて使いまわす？
+        それともuniform bufferだけ更新して上書き？
+        一旦整理が終わってから検討
+        */
 
-        VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
-        vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+        // 描画可能なモデル / メッシュ / プリミティブ型の取得
+        auto mesh_renderers = std::vector<rengine::MeshRenderer>();
+        auto cameras = std::vector<vengine::Camera>(); // todo rengine側に持っていきたい
 
-        auto bindingDescription = Vertex::getBindingDescription();
-        auto attributeDescriptions = Vertex::getAttributeDescriptions();
+        // TODO 最後のしか反映されないので後で修正
+        VkPipelineShaderStageCreateInfo vertex_shader_stage = {};
+        VkPipelineShaderStageCreateInfo fragment_shader_stage = {};
+        VkPipelineVertexInputStateCreateInfo vertex_input_info = {};
+        VkPipelineInputAssemblyStateCreateInfo input_assembly_info = {};
+        for (const auto& mesh_renderer : mesh_renderers) {
+            bool isEnable = mesh_renderer.isEnable();
+            if (!isEnable) {
+                continue;
+            }
 
-        vertexInputInfo.vertexBindingDescriptionCount = 1;
-        vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
-        vertexInputInfo.pVertexBindingDescriptions = &bindingDescription;
-        vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
+            auto shader = mesh_renderer.getSharedMaterial()->getShader()->get();
 
-        VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
-        inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-        inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-        inputAssembly.primitiveRestartEnable = VK_FALSE;
+            pipeline_builder_->shader()->buildVertexShaderStage(shader, vertex_shader_stage);
+            pipeline_builder_->shader()->buildFragmentShaderStage(shader, fragment_shader_stage);
+            pipeline_builder_->shader()->buildVertexInputInfo(shader, vertex_input_info);
+            pipeline_builder_->shader()->buildInputAssemblyInfo(shader, input_assembly_info);
 
-        /*VkViewport viewport = {};
-        viewport.x = 0.0f;
-        viewport.y = 0.0f;
-        viewport.width = graphics_backend_->getVulkanSwapchain().getWidth();
-        viewport.height = graphics_backend_->getVulkanSwapchain().getHeight();
-        viewport.minDepth = 0.0f;
-        viewport.maxDepth = 1.0f;
 
+        }
+
+        // TODO 視錐台カリング
+
+        pipeline_builder_->descriptor()->buildSimpleDescriptor
+        (
+            graphics_backend_->getVulkanSwapchain()->getSwapchainCount(),
+            uniform_buffers_,
+            sizeof(UniformBufferObject),
+            texture_image_views,
+            texture_image_samplers
+        );
+
+        VkViewport viewport = {};
         VkRect2D scissor = {};
-        scissor.offset = { 0, 0 };
-        scissor.extent = graphics_backend_->getVulkanSwapchain().getExtent();
+        VkPipelineViewportStateCreateInfo viewport_state = {};
+        VkPipelineRasterizationStateCreateInfo rasterization = {};
+        VkPipelineMultisampleStateCreateInfo multisample = {};
+        for (auto camera : cameras) {
 
-        VkPipelineViewportStateCreateInfo viewportState = {};
-        viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-        viewportState.viewportCount = 1;
-        viewportState.pViewports = &viewport;
-        viewportState.scissorCount = 1;
-        viewportState.pScissors = &scissor;*/
+            pipeline_builder_->camera()->buildViewport(camera, viewport);
+            pipeline_builder_->camera()->buildScissor(camera, scissor);
+            pipeline_builder_->camera()->buildViewportState(camera, viewport, scissor, viewport_state);
+            pipeline_builder_->camera()->buildRasterizer(camera, rasterization);
+            pipeline_builder_->camera()->buildMultisample(camera, multisample);
 
-        //VkPipelineRasterizationStateCreateInfo rasterizer = {};
-        //rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-        //rasterizer.depthClampEnable = VK_FALSE;
-        //rasterizer.rasterizerDiscardEnable = VK_FALSE;
-        //rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
-        //rasterizer.lineWidth = 1.0f;
-        //rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
-        //rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-        //rasterizer.depthBiasEnable = VK_FALSE;
 
-        //VkPipelineMultisampleStateCreateInfo multisampling = {};
-        //multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-        //multisampling.sampleShadingEnable = VK_FALSE;
-        //multisampling.rasterizationSamples = msaaSamples;
+            // framebuffer
+            //auto depth_stencil_state    = pipeline_builder_->camera()->buildDepthStencilState();
+            //auto color_blend_attachment = pipeline_builder_->camera()->buildColorBlendAttachment();
+            //auto color_blend_state      = pipeline_builder_->camera()->buildColorBlendState();
+            //
+            //auto pipeline_layout    = pipeline_builder_->buildPipelineLayout();
+            //auto graphics_pipeline  = pipeline_builder_->buildGraphicsPipeline();
+
+        }
+
+        // RenderPass作成
+        // simple hogeシリーズは関数群をまとめたやつ。
+        // 展開する必要があるやも
+        pipeline_builder_->render_pass()->buildSimpleRenderPass(render_pass_);
 
         //VkPipelineDepthStencilStateCreateInfo depthStencil = {};
         //depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
@@ -129,7 +161,7 @@ namespace vengine
         //pipelineLayoutInfo.setLayoutCount = 1;
         //pipelineLayoutInfo.pSetLayouts = ;
 
-        VkResult result = vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &pipelineLayout);
+        VkResult result = vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &pipeline_layout_);
         if (result != VK_SUCCESS) {
             throw std::runtime_error("failed to create pipeline layout!");
         }
@@ -145,12 +177,12 @@ namespace vengine
         pipelineInfo.pMultisampleState = &multisampling;
         pipelineInfo.pDepthStencilState = &depthStencil;
         pipelineInfo.pColorBlendState = &colorBlending;
-        pipelineInfo.layout = pipelineLayout;
+        pipelineInfo.layout = pipeline_layout_;
         pipelineInfo.renderPass = renderPass;
         pipelineInfo.subpass = 0;
         pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 
-        if (vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS) {
+        if (vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphics_pipeline_) != VK_SUCCESS) {
             throw std::runtime_error("failed to create graphics pipeline!");
         }
 
@@ -326,9 +358,9 @@ namespace vengine
         fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
         for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-            if (vkCreateSemaphore(device, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]) != VK_SUCCESS ||
-                vkCreateSemaphore(device, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]) != VK_SUCCESS ||
-                vkCreateFence(device, &fenceInfo, nullptr, &inFlightFences[i]) != VK_SUCCESS) {
+            if (vkCreateSemaphore(device, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i])!= VK_SUCCESS
+             || vkCreateSemaphore(device, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]) != VK_SUCCESS
+             || vkCreateFence(device, &fenceInfo, nullptr, &inFlightFences[i]) != VK_SUCCESS) {
                 throw std::runtime_error("failed to create synchronization objects for a frame!");
             }
         }
