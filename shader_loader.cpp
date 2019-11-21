@@ -38,7 +38,7 @@ namespace vengine
         VkShaderModule module;
         ShaderModule shader_module = {};
         ShaderLoader::createShaderModule(graphics_backend_, buffer, shader_module);
-        ShaderLoader::createShaderStage(file_name, ShaderStageType::Vertex, shader_module);
+        ShaderLoader::createShaderStage(file_name, ShaderStageType::VertexShader, shader_module);
 
         auto out_shader_module = std::make_shared<VertexShaderModule>(shader_module);
 
@@ -57,7 +57,7 @@ namespace vengine
         VkShaderModule module = {};
         ShaderModule shader_module = {};
         ShaderLoader::createShaderModule(graphics_backend_, buffer, shader_module);
-        ShaderLoader::createShaderStage(file_name, ShaderStageType::Fragment, shader_module);
+        ShaderLoader::createShaderStage(file_name, ShaderStageType::FragmentShader, shader_module);
 
         auto out_shader_module = std::make_shared<FragmentShaderModule>(shader_module);
 
@@ -138,8 +138,8 @@ namespace vengine
     /// <param name="stage_type"></param>
     VkShaderStageFlagBits ShaderLoader::toShaderStageFlagBits(const ShaderStageType stage_type) {
         switch (stage_type) {
-        case ShaderStageType::Vertex:   return VK_SHADER_STAGE_VERTEX_BIT;
-        case ShaderStageType::Fragment: return VK_SHADER_STAGE_FRAGMENT_BIT;
+        case ShaderStageType::VertexShader:   return VK_SHADER_STAGE_VERTEX_BIT;
+        case ShaderStageType::FragmentShader: return VK_SHADER_STAGE_FRAGMENT_BIT;
         }
         assert(false, "failed to shader stage type");
     }

@@ -13,15 +13,18 @@ namespace vengine
     /// <param name="graphics_backend"></param>
     /// <param name="vertex_shader_path"></param>
     /// <param name="fragment_shader_path"></param>
+    template<int N>
     Shader::Shader
     (
         std::shared_ptr<VulkanGraphicsBackend> const graphics_backend,
         std::shared_ptr<VertexShaderModule> vertex,
-        std::shared_ptr<FragmentShaderModule> fragment
+        std::shared_ptr<FragmentShaderModule> fragment,
+        std::shared_ptr<IShaderParameter> parameter
     )
     : graphics_backend_(graphics_backend),
       vertex_(vertex),
-      fragment_(fragment) {
+      fragment_(fragment),
+      parameter_(parameter) {
     }
 
     /// <summary>

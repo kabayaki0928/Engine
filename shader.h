@@ -1,5 +1,10 @@
 #pragma once
 
+#define GLFW_INCLUDE_VULKAN
+#include <glm/glm.hpp>
+
+#include "ishader_parameter.h"
+
 namespace vengine
 {
     class VulkanGraphicsBackend;
@@ -7,6 +12,7 @@ namespace vengine
     typedef struct ShaderModule {
         VkShaderModule module_;
         VkPipelineShaderStageCreateInfo create_info_;
+        char* name_;
     } ShaderModule;
 
     using VertexShaderModule = ShaderModule;
@@ -36,8 +42,8 @@ namespace vengine
     */
     enum ShaderStageType
     {
-        Vertex,     // 頂点シェーダー
-        Fragment,   // フラグメントシェーダー
+        VertexShader,     // 頂点シェーダー
+        FragmentShader,   // フラグメントシェーダー
     };
 
     class Shader final
@@ -46,21 +52,22 @@ namespace vengine
         std::shared_ptr<VulkanGraphicsBackend> graphics_backend_;
         std::shared_ptr<VertexShaderModule> vertex_;
         std::shared_ptr<FragmentShaderModule> fragment_;
-    public:
+        std::shared_ptr<IShaderParameter> parameter_;
+    public: 
         Shader
         (
             std::shared_ptr<VulkanGraphicsBackend> const graphics_backend,
             std::shared_ptr<VertexShaderModule> vertex,
-            std::shared_ptr<FragmentShaderModule> fragment
+            std::shared_ptr<FragmentShaderModule> fragment,
+            std::shared_ptr<IShaderParameter> parameter
         );
         ~Shader();
 
-        inline const ShaderModule& getVertexShaderModule() const noexcept {
+        inline const VkShaderModule& getVertexShaderModule() const noexcept {
             return vertex_->module_;
         }
 
-        inline const ShaderModule& getFragmentShaderModule() const noexcept {
-            return fragment_->module_;
-        }
+        inline const VkShaderModule& getFragmentShaderModule() const noexcept { return fragment_->module_; }
+        inline const std::shared_ptr<IShaderParameter> getParameter() const noexcept { return parameter_; }
     };
 } // vengine
