@@ -13,8 +13,8 @@ namespace vengine
     /// コンストラクタ
     /// </summary>
     /// <param name="graphics_backend"></param>
-    Swapchain::Swapchain(std::shared_ptr<VulkanGraphicsBackend> graphics_backend, const int width, const int height) {
-        graphics_backend_ = graphics_backend;
+    Swapchain::Swapchain(std::shared_ptr<VulkanGraphicsBackend> graphics_backend, const int width, const int height)
+    : graphics_backend_(graphics_backend) {
         create(width, height);
     }
 
@@ -26,6 +26,13 @@ namespace vengine
         vkDestroySwapchainKHR(graphics_backend_->getLogicalDevice(), swapchain_, nullptr);
         graphics_backend_.reset();
     }
+
+    /// <summary>
+    /// swapchainが何枚用意されているか取得する
+    /// この数はプラットフォームごとに変動する
+    /// </summary>
+    /// <returns></returns>
+    uint32_t Swapchain::getSwapchainCount() const noexcept { return swapchain_image_views_->getCount(); }
 
     /// <summary>
     /// 作成処理
@@ -49,6 +56,18 @@ namespace vengine
         swapchain_image_views_ = std::make_unique<SwapchainImageViews>(graphics_backend_);
     }
 
+    /// <summary>
+    /// 作成処理
+    /// </summary>
+    /// <param name="window"></param>
+    /// <param name="physicalDevice"></param>
+    /// <param name="device"></param>
+    /// <param name="surface"></param>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <param name="out_swapchain"></param>
+    /// <param name="out_format"></param>
+    /// <param name="out_extent"></param>
     void Swapchain::create
     (
         const GLFWwindow* window,

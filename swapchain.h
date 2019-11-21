@@ -44,6 +44,9 @@ namespace vengine
         void recreate();
         void cleanup();
 
+        const VkFormat& getSwapchainImageFormat() const noexcept { return image_format_; }
+        uint32_t getSwapchainCount() const noexcept;
+
         //--------------------
         // overrideŒQ
         inline const VkExtent2D& getExtent() const noexcept override {
