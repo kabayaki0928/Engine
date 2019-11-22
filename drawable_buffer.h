@@ -38,14 +38,8 @@ namespace vengine
             std::shared_ptr<VulkanGraphicsBackend> const graphics_backend,
             std::vector<Vertex> vertices,
             std::vector<uint32_t> indices
-        ) {
-            this->vertices_ = vertices;
-            this->indices_ = indices;
-        }
-        ~DrawableBuffer() {
-            vertices_.clear();
-            indices_.clear();
-        }
+        );
+        ~DrawableBuffer();
 
         void create();
         static void createVertexBuffer

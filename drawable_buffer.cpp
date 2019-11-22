@@ -24,7 +24,8 @@ namespace vengine
     /// デストラクタ
     /// </summary>
     DrawableBuffer::~DrawableBuffer() {
-
+        vertices_.clear();
+        indices_.clear();
     }
 
     /// <summary>
@@ -68,6 +69,12 @@ namespace vengine
         );
     }
 
+    /// <summary>
+    /// indexバッファの作成
+    /// </summary>
+    /// <param name="graphics_backend"></param>
+    /// <param name="indices"></param>
+    /// <param name="out_data"></param>
     void DrawableBuffer::createIndexBuffer
     (
         std::shared_ptr<VulkanGraphicsBackend> graphics_backend,
@@ -119,6 +126,9 @@ namespace vengine
         Buffer::createBuffer(graphics_backend, buffer_size, src_buffer_usage_flags, src_memory_property_usage_flags, stagingBuffer, stagingBufferMemory);
 
         auto device = graphics_backend->getLogicalDevice();
+
+        // TODO 雑に確保してしまっているので、モデル用のバッファ用のpoolを作って
+        // そこから確保しておいたほうがいいかもしれない
         void* data;
         vkMapMemory(device, stagingBufferMemory, 0, buffer_size, 0, &data);
         memcpy(data, mem_cpy_data, (size_t)buffer_size);
