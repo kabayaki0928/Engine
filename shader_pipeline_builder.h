@@ -3,7 +3,7 @@
 namespace vengine
 {
     class Shader;
-    using PShader = const Shader* const;
+    using SpShader = std::shared_ptr<Shader> const;
 
     /// <summary>
     /// シェーダーをRenderingPipeline上に配置 / 生成していくためのクラス
@@ -14,10 +14,10 @@ namespace vengine
         ShaderPipelineBuilder();
         ~ShaderPipelineBuilder();
 
-        void buildVertexShaderStage(PShader shader, VkPipelineShaderStageCreateInfo& out_create_info);
-        void buildFragmentShaderStage(PShader shader, VkPipelineShaderStageCreateInfo& out_create_info);
-        void buildVertexInputInfo(PShader shader, VkPipelineVertexInputStateCreateInfo& out_create_info);
-        void buildInputAssemblyInfo(PShader shader, VkPipelineInputAssemblyStateCreateInfo& out_create_info);
+        void buildVertexShaderStage(SpShader shader, VkPipelineShaderStageCreateInfo& out_create_info);
+        void buildFragmentShaderStage(SpShader shader, VkPipelineShaderStageCreateInfo& out_create_info);
+        void buildVertexInputInfo(SpShader shader, VkPipelineVertexInputStateCreateInfo& out_create_info);
+        void buildInputAssemblyInfo(SpShader shader, VkPipelineInputAssemblyStateCreateInfo& out_create_info);
     };
 } // vengine
 

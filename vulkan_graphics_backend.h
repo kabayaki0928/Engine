@@ -23,9 +23,6 @@
 #include "window.h"
 
 namespace vengine {
-    namespace {
-        using namespace rengine;
-    }
 
     /// <summary>
     /// VulkanのGraphicsAPIを使用するためのクラス
@@ -33,7 +30,7 @@ namespace vengine {
     /// それ以外のメイン層はIGraphicsBackendで保持するイメージ
     /// </summary>
     class VulkanGraphicsBackend final : public std::enable_shared_from_this<VulkanGraphicsBackend>,
-                                        public IGraphicsBackend
+                                        public rengine::IGraphicsBackend
     {
     private:
         std::shared_ptr<VulkanGraphicsBackend>  self_;
@@ -51,19 +48,19 @@ namespace vengine {
         // override
         void initialize() override;
         void recreateSwapchain() override;
-        inline const IWindow* getWindow() const noexcept override {
+        inline const rengine::IWindow* getWindow() const noexcept override {
             return window_.get();
         }
-        inline const IGraphicsInstance* getInstance() const noexcept override {
+        inline const rengine::IGraphicsInstance* getInstance() const noexcept override {
             return instance_.get();
         }
-        inline const IGraphicsDevice* getDevice() const noexcept override {
+        inline const rengine::IGraphicsDevice* getDevice() const noexcept override {
             return device_.get();
         }
-        inline const ISurface* getSurface() const noexcept override {
+        inline const rengine::ISurface* getSurface() const noexcept override {
             return surface_.get();
         }
-        inline const ISwapchain* getSwapchain() const noexcept override {
+        inline const rengine::ISwapchain* getSwapchain() const noexcept override {
             return swapchain_.get();
         }
 

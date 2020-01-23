@@ -57,7 +57,7 @@ namespace vengine
     {
     private:
         std::shared_ptr<VulkanGraphicsBackend> graphics_backend_;
-        Buffer color_buffer_; // TODO 
+        Buffer color_buffer_; // TODO
         Buffer depth_buffer_;
 
         Viewport viewport_;
@@ -70,5 +70,7 @@ namespace vengine
         inline const Viewport& getViewport() const noexcept { return viewport_; }
         inline const Scissor& getScissor() const noexcept { return scissor_; }
         inline const MSAASamples& getMSAASamples() const noexcept { return samples_; }
+        inline const Buffer& getColorBuffer() const noexcept { return color_buffer_; }
+        inline const Buffer& getDepthBuffer() const noexcept { return depth_buffer_; }
     };
 } // vengine

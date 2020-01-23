@@ -5,22 +5,17 @@
 #include "drawable_buffer.h"
 #include "shader.h"
 
-
 namespace rengine
 {
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    /// <returns></returns>
     Model::Model
     (
         std::shared_ptr<DrawableBuffer> const drawable_buffer,
-        std::vector<std::shared_ptr<Texture>> textures,
-        std::shared_ptr<Shader> shader
+        std::shared_ptr<Material> const material
     ) : drawable_buffer_(drawable_buffer),
-        textures_(textures),
-        shader_(shader) {
-
+        material_(material) {
     }
 
     /// <summary>
@@ -28,12 +23,8 @@ namespace rengine
     /// </summary>
     /// <returns></returns>
     Model::~Model() {
-        drawable_buffer_.reset();
-        for (auto& texture : textures_) {
-            texture.reset();
-        }
-        textures_.clear();
-        shader_.reset();
+        drawable_buffer_ = nullptr;
+        material_ = nullptr;
     }
 
 } // vengine

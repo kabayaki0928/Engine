@@ -221,7 +221,8 @@ namespace vengine
         const std::vector<VkBuffer> uniform_buffer_objects,
         uint32_t range,
         const VkImageView& image_view, 
-        const VkSampler& sampler
+        const VkSampler& sampler,
+        VkDescriptorSetLayout& out_set_layout
     ) {
         // 本来はこの構造体を外からもらう
         // uniform buffer object = mesh_renderer、ないしdrawable_buffer毎に必要なので
@@ -240,17 +241,16 @@ namespace vengine
         };
         VkDescriptorSetLayoutBinding bindings[2];
         VkDescriptorSetLayoutCreateInfo set_layout_create_info;
-        VkDescriptorSetLayout set_layout;
         VkDescriptorPoolCreateInfo pool_info;
         VkDescriptorPool pool;
         std::vector<VkDescriptorSet> sets;
         buildSetLayoutBinding(layouts, bindings);
         buildSetLayoutInfo(bindings, set_layout_create_info);
-        buildSetLayout(set_layout_create_info, set_layout);
+        buildSetLayout(set_layout_create_info, out_set_layout);
 
         buildPoolInfo(layouts, swapchain_count, pool_info);
         buildPool(pool_info, pool);
-        buildSets(swapchain_count, set_layout, pool, sets);
+        buildSets(swapchain_count, out_set_layout, pool, sets);
 
         DescriptorSetList list(swapchain_count);
         uint32_t binding_idx = 0;

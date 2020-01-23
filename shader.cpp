@@ -13,7 +13,6 @@ namespace vengine
     /// <param name="graphics_backend"></param>
     /// <param name="vertex_shader_path"></param>
     /// <param name="fragment_shader_path"></param>
-    template<int N>
     Shader::Shader
     (
         std::shared_ptr<VulkanGraphicsBackend> const graphics_backend,
@@ -32,8 +31,8 @@ namespace vengine
     /// </summary>
     Shader::~Shader() {
         auto device = graphics_backend_->getLogicalDevice();
-        vkDestroyShaderModule(device, vertex_->module_, nullptr);
-        vkDestroyShaderModule(device, fragment_->module_, nullptr);
+        vkDestroyShaderModule(device, vertex_->module_, graphics_backend_->getAllocator());
+        vkDestroyShaderModule(device, fragment_->module_, graphics_backend_->getAllocator());
     }
 
 

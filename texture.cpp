@@ -67,7 +67,7 @@ namespace vengine
             memory_
         );
 
-        ExecutableCommandBufferData data = {};
+        ExecutableCommandBufferData command_buffer_data = {};
         CommandBuffer::transitionImageLayout
         (
             image_,
@@ -98,8 +98,7 @@ namespace vengine
             pixel_data.height_,
             mip_levels_
         );
-        
-        
+
         ImageView::createImageView
         (
             graphics_backend_,

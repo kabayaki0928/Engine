@@ -25,7 +25,6 @@ namespace vengine
 
         void create();
         static void createImageView(std::shared_ptr<VulkanGraphicsBackend> const graphics_backend, const VkDevice& device, const VkSwapchainKHR& swapChain, std::vector<ImageView*>& out_image_views);
-        static void createFrameBuffers();
 
         uint32_t getCount() const noexcept { return image_views_.size(); }
     };

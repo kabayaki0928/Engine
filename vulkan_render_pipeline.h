@@ -24,11 +24,15 @@ namespace vengine
         std::vector<VkSemaphore> render_finished_semaphores_;
         size_t current_frame_ = 0;
 
+        VkCommandPool command_pool_;
+        std::vector<VkCommandBuffer> command_buffers_;
+
+        // TODO ‚±‚ê‚Í•Êclass‚ÉØ‚èo‚µ‚½‚Ù‚¤‚ª‚æ‚³‚»‚¤
         std::vector<VkBuffer> uniform_buffers_;
         std::vector<VkDeviceMemory> uniform_buffers_memory_;
 
-        VkCommandPool command_pool_;
-        std::vector<VkCommandBuffer> command_buffers_;
+        std::vector<VkFramebuffer> frame_buffers_;
+
 
     private:
         void createGraphicsPipeline();

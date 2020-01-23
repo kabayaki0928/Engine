@@ -12,6 +12,10 @@ namespace vengine
             VkBuffer buffer_;
             VkDeviceMemory buffer_memory_;
         } Data;
+        typedef struct DrawableBufferData {
+            Data vertex_data_;
+            Data index_data_;
+        } DrawableBufferData;
     }
 
     class VulkanGraphicsBackend;

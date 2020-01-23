@@ -1,13 +1,15 @@
 #include "camera_pipeline_builder.h"
 
 #include "camera.h"
+#include "vulkan_graphics_backend.h"
 
 namespace vengine
 {
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    CameraPipelineBuilder::CameraPipelineBuilder() {
+    CameraPipelineBuilder::CameraPipelineBuilder(std::shared_ptr<VulkanGraphicsBackend> const graphics_backend)
+    : graphics_backend_(graphics_backend) {
     }
 
     /// <summary>
@@ -32,9 +34,9 @@ namespace vengine
         out_viewport.maxDepth = viewport.max_depth;
     }
     void CameraPipelineBuilder::buildScissor(PCamera camera, VkRect2D& out_scissor) {
-        Scissor scissor = camera->getSicssor();
+        Scissor scissor = camera->getScissor();
 
-        out_scissor.offset = { scissor.offset_x, scissor.offset_y };
+        out_scissor.offset = { static_cast<uint32_t>(scissor.offset_x), static_cast<uint32_t>(scissor.offset_y) };
         out_scissor.extent = { scissor.extent_x, scissor.extent_y }; 
     }
     void CameraPipelineBuilder::buildViewportState(PCamera camera, const VkViewport& viewport, const VkRect2D& scissor, VkPipelineViewportStateCreateInfo& out_create_info) {
@@ -76,6 +78,56 @@ namespace vengine
         // VK_SAMPLE_COUNT_1_BITで実質かかってないとかならそのままでもよさそう
         out_create_info.sampleShadingEnable = VK_FALSE;
         out_create_info.rasterizationSamples = toVkSampleCountFlagBits(camera->getMSAASamples());
+    }
+
+    void CameraPipelineBuilder::buildDepthStencilState(PCamera camera, VkPipelineDepthStencilStateCreateInfo& out_create_info) {
+        out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+        // 深度情報の書き込み設定
+        // depth用の情報なのでこれでOK
+        // UI用のカメラとか用意するならここで情報を見る
+        out_create_info.depthTestEnable = VK_TRUE;
+        out_create_info.depthWriteEnable = VK_TRUE;
+        out_create_info.depthCompareOp = VK_COMPARE_OP_LESS;
+        out_create_info.depthBoundsTestEnable = VK_FALSE;
+        out_create_info.stencilTestEnable = VK_FALSE;
+    }
+
+    void CameraPipelineBuilder::buildColorBlendAttachment(PCamera camera, VkPipelineColorBlendAttachmentState& out_create_info) {
+        out_create_info.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+        out_create_info.blendEnable = VK_FALSE;
+    }
+
+    void CameraPipelineBuilder::buildColorBlendState(PCamera camera, const VkPipelineColorBlendAttachmentState& attachment, VkPipelineColorBlendStateCreateInfo& out_create_info) {
+        out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+        out_create_info.logicOpEnable = VK_FALSE;
+        out_create_info.logicOp = VK_LOGIC_OP_COPY;
+        out_create_info.attachmentCount = 1;
+        out_create_info.pAttachments = &attachment;
+        out_create_info.blendConstants[0] = 0.0f;
+        out_create_info.blendConstants[1] = 0.0f;
+        out_create_info.blendConstants[2] = 0.0f;
+        out_create_info.blendConstants[3] = 0.0f;
+    }
+
+    void CameraPipelineBuilder::buildFrameBuffer(PCamera camera, VkFramebuffer& out_frame_buffer) {
+        std::array<VkImageView, 3> attachments = {
+            camera->getColorBuffer().image_view_,
+            camera->getDepthBuffer().image_view_,
+            graphics_backend_->getVulkanSwapchain().getBuffer().image_views[i];
+        };
+
+        VkFramebufferCreateInfo framebufferInfo = {};
+        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        framebufferInfo.renderPass = renderPass;
+        framebufferInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
+        framebufferInfo.pAttachments = attachments.data();
+        framebufferInfo.width = extent.width;
+        framebufferInfo.height = extent.height;
+        framebufferInfo.layers = 1;
+
+        if (vkCreateFramebuffer(device, &framebufferInfo, nullptr, &swapChainFramebuffers[i]) != VK_SUCCESS) {
+            throw std::runtime_error("failed to create framebuffer!");
+        }
     }
 
     inline VkSampleCountFlagBits toVkSampleCountFlagBits(const MSAASamples& samples) noexcept {

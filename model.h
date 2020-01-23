@@ -1,24 +1,20 @@
-#ifndef MODELH
-#define MODELH
+#pragma once
 
 namespace rengine
 {
     class DrawableBuffer;
-    class Shader;
-    class Texture;
+    class Material;
 
     class Model final
     {
     private:
         std::shared_ptr<DrawableBuffer> drawable_buffer_;
-        std::vector<std::shared_ptr<Texture>> textures_;
-        std::shared_ptr<Shader> shader_;
+        std::shared_ptr<Material> material_;
     public:
         Model
         (
             std::shared_ptr<DrawableBuffer> const drawable_buffer,
-            std::vector<std::shared_ptr<Texture>> textures,
-            std::shared_ptr<Shader> shader
+            std::shared_ptr<Material> material
         );
         ~Model();
 
@@ -31,5 +27,4 @@ namespace rengine
     };
 
 } // vengine
-#endif
 

@@ -2,6 +2,7 @@
 
 namespace vengine
 {
+    class VulkanGraphicsBackend;
     class CameraPipelineBuilder;
     class ShaderPipelineBuilder;
     class RenderPassPipelineBuilder;
@@ -14,6 +15,7 @@ namespace vengine
     class PipelineBuilder final
     {
     private:
+        std::shared_ptr<VulkanGraphicsBackend> graphics_backend_;
         std::shared_ptr<CameraPipelineBuilder> camera_builder_;
         std::shared_ptr<ShaderPipelineBuilder> shader_builder_;
         std::shared_ptr<RenderPassPipelineBuilder> render_pass_builder_;
@@ -30,20 +32,21 @@ namespace vengine
         void buildDepthStencilState(VkPipelineDepthStencilStateCreateInfo& out_create_info);
         void buildColorBlendAttachmentState(VkPipelineColorBlendAttachmentState& out_create_info);
         void buildColorBlendState(const VkPipelineColorBlendAttachmentState& color_blend_attachment, VkPipelineColorBlendStateCreateInfo& out_create_info);
-        void buildPipelineLayout(const VkDescriptorSetLayout& layout, VkPipelineLayoutCreateInfo& out_create_info);
-        void buildGraphicsPipeline(
+        void buildPipelineLayoutInfo(const VkDescriptorSetLayout& layout, VkPipelineLayoutCreateInfo& out_create_info);
+        void buildPipelineLayout(const VkPipelineLayoutCreateInfo& create_info, VkPipelineLayout out_pipeline_layout);
+        void buildGraphicsPipelineInfo(
             const VkPipelineShaderStageCreateInfo*          stages,
             const VkPipelineVertexInputStateCreateInfo*     vertex_input_state,
             const VkPipelineInputAssemblyStateCreateInfo*   input_assembly_state,
             const VkPipelineViewportStateCreateInfo*        viewport_state,
             const VkPipelineRasterizationStateCreateInfo*   rasterization_state,
-            const VkPipelineMultisampleStateCreateInfo*     Multisample_state,
+            const VkPipelineMultisampleStateCreateInfo*     multisample_state,
             const VkPipelineDepthStencilStateCreateInfo*    depth_stencil_state,
             const VkPipelineColorBlendStateCreateInfo*      color_blend_state,
             const VkPipelineLayout&                         layout,
             const VkRenderPass&                             render_pass,
             VkGraphicsPipelineCreateInfo&                   out_create_info
         );
-
+        void buildGraphicsPipeline(const VkGraphicsPipelineCreateInfo& out_create_info,VkPipeline& out_graphics_pipeline);
     };
 } // vengine

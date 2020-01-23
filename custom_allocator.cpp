@@ -7,15 +7,13 @@ namespace vengine
     /// コンストラクタ
     /// </summary>
     CustomAllocator::CustomAllocator()
-        : allocator_(std::make_unique<VkAllocationCallbacks>())
-    {
+    : allocator_(std::make_unique<VkAllocationCallbacks>()) {
     }
 
     /// <summary>
     /// デストラクタ
     /// </summary>
-    CustomAllocator::~CustomAllocator()
-    {
+    CustomAllocator::~CustomAllocator() {
     }
 
 } // vengine

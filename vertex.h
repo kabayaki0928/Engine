@@ -67,16 +67,15 @@ namespace vengine
     //};
 } // vengine
 
-  // TODO Extensions‚Æ‚µ‚Ä“¦‚ª‚·‚×‚«‚È•µˆÍ‹C
-  // —Ê‚ª‘½‚­‚È‚Á‚½‚çÄl
 namespace std {
     template<> struct hash<vengine::Vertex> {
         size_t operator()(vengine::Vertex const& vertex) const {
-            return (
-                (hash<glm::vec3>()(vertex.pos) ^
-                (hash<glm::vec3>()(vertex.color) << 1)) >> 1) ^
-                    (hash<glm::vec2>()(vertex.texCoord) << 1
-                        );
+            return
+            (
+                (hash<glm::vec3>()(vertex.pos)
+              ^ (hash<glm::vec3>()(vertex.color) << 1)) >> 1)
+              ^ (hash<glm::vec2>()(vertex.texCoord) << 1
+            );
         }
     };
 }

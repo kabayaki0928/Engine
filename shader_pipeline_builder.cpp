@@ -19,7 +19,7 @@ namespace vengine
     /// <summary>
     /// shader stage作成(頂点編)
     /// </summary>
-    void ShaderPipelineBuilder::buildVertexShaderStage(PShader shader, VkPipelineShaderStageCreateInfo& out_create_info) {
+    void ShaderPipelineBuilder::buildVertexShaderStage(SpShader shader, VkPipelineShaderStageCreateInfo& out_create_info) {
         // https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPipelineShaderStageCreateInfo.html
         out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
         out_create_info.stage = VK_SHADER_STAGE_VERTEX_BIT;
@@ -31,7 +31,7 @@ namespace vengine
     /// </summary>
     /// <param name="shader"></param>
     /// <param name="out_create_info"></param>
-    void ShaderPipelineBuilder::buildFragmentShaderStage(PShader shader, VkPipelineShaderStageCreateInfo& out_create_info) {
+    void ShaderPipelineBuilder::buildFragmentShaderStage(SpShader shader, VkPipelineShaderStageCreateInfo& out_create_info) {
         // https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPipelineShaderStageCreateInfo.html
         out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
         out_create_info.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
@@ -43,7 +43,7 @@ namespace vengine
     /// </summary>
     /// <param name="shader"></param>
     /// <param name="out_create_info"></param>
-    void ShaderPipelineBuilder::buildVertexInputInfo(PShader shader, VkPipelineVertexInputStateCreateInfo& out_create_info) {
+    void ShaderPipelineBuilder::buildVertexInputInfo(SpShader shader, VkPipelineVertexInputStateCreateInfo& out_create_info) {
         auto parameter = shader->getParameter();
         auto binding = parameter->getBindingDescription();
         auto attribute = parameter->getAttributeDescription();
@@ -64,7 +64,7 @@ namespace vengine
     /// </summary>
     /// <param name="shader"></param>
     /// <param name="out_create_info"></param>
-    void ShaderPipelineBuilder::buildInputAssemblyInfo(PShader shader, VkPipelineInputAssemblyStateCreateInfo& out_create_info) {
+    void ShaderPipelineBuilder::buildInputAssemblyInfo(SpShader shader, VkPipelineInputAssemblyStateCreateInfo& out_create_info) {
         // https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkPipelineInputAssemblyStateCreateInfo.html
         // TODO shader読み込み時に変更できるようにする必要がある
         out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;

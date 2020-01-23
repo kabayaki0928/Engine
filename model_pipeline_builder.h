@@ -10,10 +10,10 @@ namespace vengine
         ModelPipelineBuilder();
         ~ModelPipelineBuilder();
 
-        void createModelInfo
-        (
-            VkPipelineShaderStageCreateInfo[]& out_shader_stage
-        );
-        void createUniformBuffers();
+        //void createModelInfo
+        //(
+        //    VkPipelineShaderStageCreateInfo[]& out_shader_stage
+        //);
+        //void createUniformBuffers();
     };
 } // vengine

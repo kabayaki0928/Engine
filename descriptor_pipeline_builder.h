@@ -37,7 +37,8 @@ namespace vengine
             const std::vector<VkBuffer> uniform_buffer_objects,
             uint32_t range,
             const VkImageView& image_view,
-            const VkSampler& sampler
+            const VkSampler& sampler,
+            VkDescriptorSetLayout& out_set_layout
         );
     };
 } // vengine

@@ -1,23 +1,27 @@
 #include "vulkan_render_pipeline.h"
 
-#include "vulkan_graphics_backend.h"
 #include "vulkan_utils.h"
 #include "vertex.h"
 #include "shader.h"
 #include "uniform_buffer.h"
 #include "queue_family.h"
 
-#include "mesh_renderer.h"
+#include "texture.h"
+#include "ishader_parameter.h"
+#include "shader.h""
 #include "material.h"
+#include "model.h"
+#include "model_renderer.h"
+
 #include "camera.h"
-#include "swapchain.h"
-#include "shader.h"
 
 #include "pipeline_builder.h"
 #include "camera_pipeline_builder.h"
 #include "shader_pipeline_builder.h"
 #include "render_pass_pipeline_builder.h"
 #include "descriptor_pipeline_builder.h"
+
+#include "vulkan_graphics_backend.h"
 
 namespace vengine
 {
@@ -35,73 +39,45 @@ namespace vengine
     }
 
     void VulkanRenderPipeline::createGraphicsPipeline() {
-        /*
-        各シェーダー毎
-        シェーダー
-        シェーダーパラメータ
-        アセンブラ
-        TODO シェーダーが増えたタイミングでgraphics_pipelineを作り直す必要がある
-        シェーダーパラメータ
-        
-        layout(location = 0) in vec3 inPosition;
-        layout(location = 1) in vec3 inColor;
-        layout(location = 2) in vec2 inTexCoord;
-        のような頂点シェーダー側で宣言しているものたち
-        
-        が増えなければそのままでも可？
-        Unityのシェーダーwarmupとかはこれを事前に作っておく系かなと予想
-        pipelineの作成が重いとかならモデルから読み込むデータ群は共通化(Unityのapp_dataとか)する案もあり。
-        ただ1回 or 毎フレームと負荷のかかり方が変わっていくので計測してから判断
 
-        カメラ毎
-        フレームバッファ3枚(色 / depth / stencil)
-        レンダーパス
 
-        pipeline layout infoはどの単位で必要？
-        モデル毎？
-
-        2 shader
-        2 camera
-        の場合
-        shaderStageに4つ入れて使いまわす？
-        それともuniform bufferだけ更新して上書き？
-        一旦整理が終わってから検討
-        */
-
-        // 描画可能なモデル / メッシュ / プリミティブ型の取得
-        auto mesh_renderers = std::vector<rengine::MeshRenderer>();
-        auto cameras = std::vector<vengine::Camera>(); // todo rengine側に持っていきたい
+        // TODO 描画可能なモデル / メッシュ / プリミティブ型の取得
+        auto model_renderers = std::vector<rengine::ModelRenderer>();
+        auto cameras = std::vector<vengine::Camera*>(); // todo rengine側に持っていきたい
 
         // TODO 最後のしか反映されないので後で修正
         VkPipelineShaderStageCreateInfo vertex_shader_stage = {};
         VkPipelineShaderStageCreateInfo fragment_shader_stage = {};
         VkPipelineVertexInputStateCreateInfo vertex_input_info = {};
         VkPipelineInputAssemblyStateCreateInfo input_assembly_info = {};
-        for (const auto& mesh_renderer : mesh_renderers) {
-            bool isEnable = mesh_renderer.isEnable();
+        for (const rengine::ModelRenderer& model_renderer : model_renderers) {
+            bool isEnable = model_renderer.isEnable();
             if (!isEnable) {
                 continue;
             }
 
-            auto shader = mesh_renderer.getSharedMaterial()->getShader()->get();
+            std::shared_ptr<rengine::Material> material = model_renderer.getSharedMaterial();
+            std::shared_ptr<Shader> shader = material->getShader();
+            auto texture = material->getTextures();
 
             pipeline_builder_->shader()->buildVertexShaderStage(shader, vertex_shader_stage);
             pipeline_builder_->shader()->buildFragmentShaderStage(shader, fragment_shader_stage);
             pipeline_builder_->shader()->buildVertexInputInfo(shader, vertex_input_info);
             pipeline_builder_->shader()->buildInputAssemblyInfo(shader, input_assembly_info);
-
-
         }
 
-        // TODO 視錐台カリング
+        VkImageView texture_image_views;
+        VkSampler texture_image_samplers;
 
+        VkDescriptorSetLayout set_layout;
         pipeline_builder_->descriptor()->buildSimpleDescriptor
         (
-            graphics_backend_->getVulkanSwapchain()->getSwapchainCount(),
+            graphics_backend_->getVulkanSwapchain().getSwapchainCount(),
             uniform_buffers_,
             sizeof(UniformBufferObject),
             texture_image_views,
-            texture_image_samplers
+            texture_image_samplers,
+            set_layout
         );
 
         VkViewport viewport = {};
@@ -109,6 +85,10 @@ namespace vengine
         VkPipelineViewportStateCreateInfo viewport_state = {};
         VkPipelineRasterizationStateCreateInfo rasterization = {};
         VkPipelineMultisampleStateCreateInfo multisample = {};
+
+        VkPipelineDepthStencilStateCreateInfo depth_stencil;
+        VkPipelineColorBlendAttachmentState color_blend_attachment;
+        VkPipelineColorBlendStateCreateInfo color_blend;
         for (auto camera : cameras) {
 
             pipeline_builder_->camera()->buildViewport(camera, viewport);
@@ -117,15 +97,9 @@ namespace vengine
             pipeline_builder_->camera()->buildRasterizer(camera, rasterization);
             pipeline_builder_->camera()->buildMultisample(camera, multisample);
 
-
-            // framebuffer
-            //auto depth_stencil_state    = pipeline_builder_->camera()->buildDepthStencilState();
-            //auto color_blend_attachment = pipeline_builder_->camera()->buildColorBlendAttachment();
-            //auto color_blend_state      = pipeline_builder_->camera()->buildColorBlendState();
-            //
-            //auto pipeline_layout    = pipeline_builder_->buildPipelineLayout();
-            //auto graphics_pipeline  = pipeline_builder_->buildGraphicsPipeline();
-
+            pipeline_builder_->camera()->buildDepthStencilState(camera, depth_stencil);
+            pipeline_builder_->camera()->buildColorBlendAttachment(camera, color_blend_attachment);
+            pipeline_builder_->camera()->buildColorBlendState(camera, color_blend_attachment, color_blend);
         }
 
         // RenderPass作成
@@ -133,69 +107,41 @@ namespace vengine
         // 展開する必要があるやも
         pipeline_builder_->render_pass()->buildSimpleRenderPass(render_pass_);
 
-        //VkPipelineDepthStencilStateCreateInfo depthStencil = {};
-        //depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-        //depthStencil.depthTestEnable = VK_TRUE;
-        //depthStencil.depthWriteEnable = VK_TRUE;
-        //depthStencil.depthCompareOp = VK_COMPARE_OP_LESS;
-        //depthStencil.depthBoundsTestEnable = VK_FALSE;
-        //depthStencil.stencilTestEnable = VK_FALSE;
 
-        //VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
-        //colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-        //colorBlendAttachment.blendEnable = VK_FALSE;
+        VkPipelineLayoutCreateInfo pipeline_layout_info = {};
+        pipeline_builder_->buildPipelineLayoutInfo(set_layout, pipeline_layout_info);
+        pipeline_builder_->buildPipelineLayout(pipeline_layout_info, pipeline_layout_);
+        
+        VkPipelineShaderStageCreateInfo shaders[] = {
+            fragment_shader_stage,
+            vertex_shader_stage
+        };
 
-        //VkPipelineColorBlendStateCreateInfo colorBlending = {};
-        //colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-        //colorBlending.logicOpEnable = VK_FALSE;
-        //colorBlending.logicOp = VK_LOGIC_OP_COPY;
-        //colorBlending.attachmentCount = 1;
-        //colorBlending.pAttachments = &colorBlendAttachment;
-        //colorBlending.blendConstants[0] = 0.0f;
-        //colorBlending.blendConstants[1] = 0.0f;
-        //colorBlending.blendConstants[2] = 0.0f;
-        //colorBlending.blendConstants[3] = 0.0f;
-
-        //VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
-        //pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-        //pipelineLayoutInfo.setLayoutCount = 1;
-        //pipelineLayoutInfo.pSetLayouts = ;
-
-        VkResult result = vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &pipeline_layout_);
-        if (result != VK_SUCCESS) {
-            throw std::runtime_error("failed to create pipeline layout!");
-        }
-
-        VkGraphicsPipelineCreateInfo pipelineInfo = {};
-        pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-        pipelineInfo.stageCount = 2;
-        pipelineInfo.pStages = shaderStages;
-        pipelineInfo.pVertexInputState = &vertexInputInfo;
-        pipelineInfo.pInputAssemblyState = &inputAssembly;
-        pipelineInfo.pViewportState = &viewportState;
-        pipelineInfo.pRasterizationState = &rasterizer;
-        pipelineInfo.pMultisampleState = &multisampling;
-        pipelineInfo.pDepthStencilState = &depthStencil;
-        pipelineInfo.pColorBlendState = &colorBlending;
-        pipelineInfo.layout = pipeline_layout_;
-        pipelineInfo.renderPass = renderPass;
-        pipelineInfo.subpass = 0;
-        pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
-
-        if (vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphics_pipeline_) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create graphics pipeline!");
-        }
-
-        vkDestroyShaderModule(device, fragShaderModule, nullptr);
-        vkDestroyShaderModule(device, vertShaderModule, nullptr);
+        // TODO poolしていないので必要がありそう
+        VkGraphicsPipelineCreateInfo graphics_pipeline_create_info;
+        pipeline_builder_->buildGraphicsPipelineInfo
+        (
+            shaders,
+            &vertex_input_info,
+            &input_assembly_info,
+            &viewport_state,
+            &rasterization,
+            &multisample,
+            nullptr, // depth stencil
+            nullptr, // color blend state
+            pipeline_layout_,
+            render_pass_,
+            graphics_pipeline_create_info
+        );
+        pipeline_builder_->buildGraphicsPipeline(graphics_pipeline_create_info, graphics_pipeline_);
     }
 
     void VulkanRenderPipeline::draw() {
 
         glfwPollEvents();
 
-        auto logical_device = graphics_backend_->getLogicalDevice();
-        auto swapchain = graphics_backend_->getVulkanSwapchain();
+        const LogicalDevice& logical_device = graphics_backend_->getLogicalDevice();
+        const Swapchain& swapchain = graphics_backend_->getVulkanSwapchain();
 
         vkWaitForFences(logical_device, 1, &in_flight_fences_[current_frame_], VK_TRUE, UINT64_MAX);
 
@@ -283,33 +229,40 @@ namespace vengine
     }
 
     void VulkanRenderPipeline::createFrameBuffers() {
-        auto swapchain = graphics_backend_->getVulkanSwapchain();
-        auto extent = swapchain.getExtent();
-        auto device = graphics_backend_->getLogicalDevice();
+        auto cameras = std::vector<vengine::Camera*>(); // todo 取得方法を正しく
+        for (const auto& camera : cameras) {
+            VkFramebuffer frame_buffer;
+            pipeline_builder_->camera()->buildFrameBuffer(camera, frame_buffer);
 
-
-        swapChainFramebuffers.resize(swapChainImageViews.size());
-
-        for (size_t i = 0; i < swapChainImageViews.size(); i++) {
-            std::array<VkImageView, 3> attachments = {
-                colorImageView,
-                depthImageView,
-                swapChainImageViews[i]
-            };
-
-            VkFramebufferCreateInfo framebufferInfo = {};
-            framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-            framebufferInfo.renderPass = renderPass;
-            framebufferInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
-            framebufferInfo.pAttachments = attachments.data();
-            framebufferInfo.width = extent.width;
-            framebufferInfo.height = extent.height;
-            framebufferInfo.layers = 1;
-
-            if (vkCreateFramebuffer(device, &framebufferInfo, nullptr, &swapChainFramebuffers[i]) != VK_SUCCESS) {
-                throw std::runtime_error("failed to create framebuffer!");
-            }
         }
+        //const Swapchain& swapchain = graphics_backend_->getVulkanSwapchain();
+        //auto extent = swapchain.getExtent();
+        //auto device = graphics_backend_->getLogicalDevice();
+        //auto count = swapchain.getSwapchainCount();
+        //
+        //frame_buffers_.resize(count);
+        //
+        //// TODO カメラごとに作る必要がある
+        //for (size_t i = 0; i < count; i++) {
+        //    std::array<VkImageView, 3> attachments = {
+        //        colorImageView,
+        //        depthImageView,
+        //        swapChainImageViews[i]
+        //    };
+        //
+        //    VkFramebufferCreateInfo framebufferInfo = {};
+        //    framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        //    framebufferInfo.renderPass = renderPass;
+        //    framebufferInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
+        //    framebufferInfo.pAttachments = attachments.data();
+        //    framebufferInfo.width = extent.width;
+        //    framebufferInfo.height = extent.height;
+        //    framebufferInfo.layers = 1;
+        //
+        //    if (vkCreateFramebuffer(device, &framebufferInfo, nullptr, &swapChainFramebuffers[i]) != VK_SUCCESS) {
+        //        throw std::runtime_error("failed to create framebuffer!");
+        //    }
+        //}
     }
 
     void VulkanRenderPipeline::createCommandPool() {
@@ -328,7 +281,8 @@ namespace vengine
     }
 
     void VulkanRenderPipeline::createColorResources() {
-        VkFormat colorFormat = swapChainImageFormat;
+        const Swapchain& swapchain = graphics_backend_->getVulkanSwapchain();
+        VkFormat colorFormat = swapchain.getSwapchainImageFormat();
 
         createImage(swapChainExtent.width, swapChainExtent.height, 1, msaaSamples, colorFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, colorImage, colorImageMemory);
         colorImageView = createImageView(colorImage, colorFormat, VK_IMAGE_ASPECT_COLOR_BIT, 1);

@@ -1,12 +1,5 @@
-#include "stdafx.h"
 #include "transform.h"
 
-namespace vengine
+namespace cengine
 {
-    Transform::Transform() {
-    }
-
-
-    Transform::~Transform() {
-    }
 } // vengine

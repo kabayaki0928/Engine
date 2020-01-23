@@ -5,6 +5,10 @@
 #include "model.h"
 #include "shader.h"
 #include "texture.h"
+#include "vertex.h"
+
+#include "ishader_parameter.h"
+#include "simple_shader_parameter.h"
 
 using SharedModel = std::shared_ptr<rengine::Model>;
 using SharedVertexShaderModule = std::shared_ptr<vengine::VertexShaderModule>;
@@ -43,7 +47,7 @@ namespace vengine
         loader_->load<SharedFragmentShaderModule>("", [&](SharedFragmentShaderModule resource) -> void { fragment_shader = resource; });
         
         // –{“–‚Íˆ—‘Ò‚¿‚µ‚È‚¢‚Æ‚¢‚¯‚È‚¢‚¯‚Ç‚»‚Ì‚Ü‚ÜShader‚ğì‚é
-        shader_ = std::make_shared<Shader>(vertex_shader, fragment_shader);
+        shader_ = std::make_shared<Shader>(vertex_shader, fragment_shader, std::make_shared<IShaderParameter>(new SimpleShaderParameter()));
     }
 
     /// <summary>

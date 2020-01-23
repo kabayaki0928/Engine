@@ -10,12 +10,14 @@
 namespace vengine
 {
     PipelineBuilder::PipelineBuilder(std::shared_ptr<VulkanGraphicsBackend> const graphics_backend)
-    : camera_builder_(std::make_shared<CameraPipelineBuilder>()),
+    : graphics_backend_(graphics_backend),
+      camera_builder_(std::make_shared<CameraPipelineBuilder>()),
       shader_builder_(std::make_shared<ShaderPipelineBuilder>()),
       render_pass_builder_(std::make_shared<RenderPassPipelineBuilder>(graphics_backend)),
       descriptor_builder_(std::make_shared<DescriptorPipelineBuilder>(graphics_backend)){
     }
     PipelineBuilder::~PipelineBuilder() {
+        graphics_backend_ = nullptr;
         camera_builder_ = nullptr;
         shader_builder_ = nullptr;
         render_pass_builder_ = nullptr;
@@ -44,18 +46,30 @@ namespace vengine
         out_create_info.blendConstants[2] = 0.0f;
         out_create_info.blendConstants[3] = 0.0f;
     }
-    void PipelineBuilder::buildPipelineLayout(const VkDescriptorSetLayout& layout, VkPipelineLayoutCreateInfo& out_create_info) {
+    void PipelineBuilder::buildPipelineLayoutInfo(const VkDescriptorSetLayout& layout, VkPipelineLayoutCreateInfo& out_create_info) {
         out_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
         out_create_info.setLayoutCount = 1;
         out_create_info.pSetLayouts = &layout;
     }
-    void PipelineBuilder::buildGraphicsPipeline(
+    void PipelineBuilder::buildPipelineLayout(const VkPipelineLayoutCreateInfo& create_info, VkPipelineLayout out_pipeline_layout) {
+        VkResult result = vkCreatePipelineLayout
+        (
+            graphics_backend_->getLogicalDevice(),
+            &create_info,
+            graphics_backend_->getAllocator(),
+            &out_pipeline_layout
+        );
+        if (result != VK_SUCCESS) {
+            throw std::runtime_error("failed to create pipeline layout!");
+        }
+    }
+    void PipelineBuilder::buildGraphicsPipelineInfo(
         const VkPipelineShaderStageCreateInfo*          stages,
         const VkPipelineVertexInputStateCreateInfo*     vertex_input_state,
         const VkPipelineInputAssemblyStateCreateInfo*   input_assembly_state,
         const VkPipelineViewportStateCreateInfo*        viewport_state,
         const VkPipelineRasterizationStateCreateInfo*   rasterization_state,
-        const VkPipelineMultisampleStateCreateInfo*     ultisample_state,
+        const VkPipelineMultisampleStateCreateInfo*     multisample_state,
         const VkPipelineDepthStencilStateCreateInfo*    depth_stencil_state,
         const VkPipelineColorBlendStateCreateInfo*      color_blend_state,
         const VkPipelineLayout&                         layout,
@@ -69,12 +83,28 @@ namespace vengine
         out_create_info.pInputAssemblyState = input_assembly_state;
         out_create_info.pViewportState = viewport_state;
         out_create_info.pRasterizationState = rasterization_state;
-        out_create_info.pMultisampleState = ultisample_state;
+        out_create_info.pMultisampleState = multisample_state;
         out_create_info.pDepthStencilState = depth_stencil_state;
         out_create_info.pColorBlendState = color_blend_state;
         out_create_info.layout = layout;
         out_create_info.renderPass = render_pass;
         out_create_info.subpass = 0; // TODO subpassŠÖ˜A‚Í‚ ‚Æ‚Ål‚¦‚é
         out_create_info.basePipelineHandle = VK_NULL_HANDLE;
+    }
+
+    void PipelineBuilder::buildGraphicsPipeline(const VkGraphicsPipelineCreateInfo& graphics_pipeline_create_info, VkPipeline& out_graphics_pipeline) {
+        // TODO VkPipelineCache
+        VkResult result = vkCreateGraphicsPipelines
+        (
+            graphics_backend_->getLogicalDevice(),
+            VK_NULL_HANDLE,
+            1,
+            &graphics_pipeline_create_info,
+            graphics_backend_->getAllocator(),
+            &out_graphics_pipeline
+        );
+        if (result != VK_SUCCESS) {
+            throw std::runtime_error("failed to create graphics pipeline!");
+        }
     }
 } // vengine

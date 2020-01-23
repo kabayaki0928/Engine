@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stb_image.h>
+
 namespace vengine
 {
     class VulkanGraphicsBackend;
@@ -10,8 +12,7 @@ namespace vengine
             int width_;
             int height_;
             int channels_;
-
-        } CreateInfo;
+        } PixelData;
     } // texture
 
     class Texture final

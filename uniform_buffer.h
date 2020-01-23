@@ -6,17 +6,11 @@
 
 namespace vengine
 {
-    struct UniformBufferObject {
+    typedef struct UniformBufferObject {
         alignas(16) glm::mat4 model;
         alignas(16) glm::mat4 view;
         alignas(16) glm::mat4 projection;
-    };
-
-    class UniformBuffer
-    {
-    public:
-
-    };
+    } UniformBufferObject;
 
 } // vengine
 

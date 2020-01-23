@@ -17,8 +17,7 @@ namespace vengine
     SimpleLoader::SimpleLoader(std::shared_ptr<VulkanGraphicsBackend> const graphics_backend)
     : model_loader_(std::make_unique<ModelLoader>()),
       shader_loader_(std::make_unique<ShaderLoader>(graphics_backend)),
-      texture_loader_(std::make_unique<TextureLoader>())
-    {
+      texture_loader_(std::make_unique<TextureLoader>()) {
 
     }
 
