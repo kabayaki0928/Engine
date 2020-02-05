@@ -14,8 +14,8 @@ namespace vengine
     /// </summary>
     VulkanSampleLoop01::VulkanSampleLoop01()
     : graphics_backend_(std::make_shared<VulkanGraphicsBackend>("test", "vulkan", user_define::WIDTH, user_define::HEIGHT)),
-      render_pipeline_(std::make_unique<IRenderPipeline>(new VulkanRenderPipeline(graphics_backend_))),
-      main_code_(std::make_unique<IMainCode>(new SimpleMainCode(graphics_backend_))) {
+      render_pipeline_(std::make_unique<rengine::IRenderPipeline>(new VulkanRenderPipeline(graphics_backend_))),
+      main_code_(std::make_unique<rengine::IMainCode>(new SimpleMainCode(graphics_backend_))) {
         // note
         /*
         暫定でコンストラクタの内側でnewするようにしたものの、SimpleMainLoopでまかなえそうな感が強い
