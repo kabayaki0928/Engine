@@ -1,11 +1,13 @@
+// プリコンパイル済みヘッダ
+#include "../stdafx.h"
 
 // Vulkanを使用する
 #define USE_VULKAN_
 
 #ifdef USE_VULKAN_
-#include "main_code/use_case/vulkan_sample_loop01.h"
+#include "../main_loop/use_case/vulkan_sample_loop01.h"
 #endif
-#include  "imain_loop.h"
+#include  "../main_loop/interface/imain_loop.h"
 
 int main() {
     rengine::IMainLoop* app = nullptr;
