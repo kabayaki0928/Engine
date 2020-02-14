@@ -96,161 +96,161 @@
     <ClCompile Include="StdAfx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="main_loop\UseCase\simple_main_code.cpp">
-      <Filter>ソース ファイル\Simple</Filter>
-    </ClCompile>
-    <ClCompile Include="main_loop\UseCase\simple_main_loop.cpp">
-      <Filter>ソース ファイル\Simple</Filter>
-    </ClCompile>
-    <ClCompile Include="main_loop\UseCase\simple_shader_parameter.cpp">
-      <Filter>ソース ファイル\Vulkan\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="main_loop\UseCase\vulkan_sample_loop01.cpp">
-      <Filter>ソース ファイル\Simple</Filter>
-    </ClCompile>
     <ClCompile Include="main_loop\main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Math\quaternion.cpp">
-      <Filter>ソース ファイル\Core\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\Math\ray.cpp">
-      <Filter>ソース ファイル\Core\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\Math\vector3.cpp">
-      <Filter>ソース ファイル\Core\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\RenderPipeline\Builder\camera_pipeline_builder.cpp">
-      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\RenderPipeline\Builder\descriptor_pipeline_builder.cpp">
-      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\RenderPipeline\Builder\model_pipeline_builder.cpp">
-      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\RenderPipeline\Builder\render_pass_pipeline_builder.cpp">
-      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\RenderPipeline\Builder\shader_pipeline_builder.cpp">
-      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\RenderPipeline\pipeline_builder.cpp">
-      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\RenderPipeline\pipeline_layout.cpp">
+    <ClCompile Include="vulkan\allocator\custom_allocator.cpp">
       <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\RenderPipeline\vulkan_render_pipeline.cpp">
-      <Filter>ソース ファイル\Vulkan\RenderPipeline</Filter>
+    <ClCompile Include="vulkan\command_buffer\buffer.cpp">
+      <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\RenderPipeline\vulkan_texture_builder.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="vulkan\command_buffer\command_buffer.cpp">
+      <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Service\DrawService\default_draw_service.cpp">
-      <Filter>ソース ファイル\Vulkan\DrawService</Filter>
+    <ClCompile Include="vulkan\command_buffer\drawable_buffer.cpp">
+      <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Service\DrawService\draw_service.cpp">
-      <Filter>ソース ファイル\Vulkan\DrawService</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\Service\HierarchyService\default_hierarchy_service.cpp">
+    <ClCompile Include="vulkan\component\behaviour.cpp">
       <Filter>ソース ファイル\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Service\HierarchyService\hierarchy_service.cpp">
-      <Filter>ソース ファイル\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\Allocator_2\custom_allocator.cpp">
-      <Filter>ソース ファイル\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\CommandBuffer_2\buffer.cpp">
-      <Filter>ソース ファイル\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\CommandBuffer_2\command_buffer.cpp">
-      <Filter>ソース ファイル\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\CommandBuffer_2\drawable_buffer.cpp">
-      <Filter>ソース ファイル\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\Component_\behaviour.cpp">
-      <Filter>ソース ファイル\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\Component_\camera.cpp">
+    <ClCompile Include="vulkan\component\camera.cpp">
       <Filter>ソース ファイル\Vulkan\Component</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Component_\model_renderer.cpp">
+    <ClCompile Include="vulkan\component\model_renderer.cpp">
       <Filter>ソース ファイル\Vulkan\Component</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Component_\transform.cpp">
+    <ClCompile Include="vulkan\component\transform.cpp">
       <Filter>ソース ファイル\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\image_view.cpp">
+    <ClCompile Include="vulkan\core\image_view.cpp">
       <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\logical_device.cpp">
+    <ClCompile Include="vulkan\core\logical_device.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\physical_device.cpp">
+    <ClCompile Include="vulkan\core\physical_device.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\physical_device_owner.cpp">
+    <ClCompile Include="vulkan\core\physical_device_owner.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\queue_family.cpp">
+    <ClCompile Include="vulkan\core\queue_family.cpp">
       <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\surface.cpp">
+    <ClCompile Include="vulkan\core\surface.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\swapchain.cpp">
+    <ClCompile Include="vulkan\core\swapchain.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\swapchain_image_views.cpp">
+    <ClCompile Include="vulkan\core\swapchain_image_views.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\vulkan_device.cpp">
+    <ClCompile Include="vulkan\core\vulkan_device.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\vulkan_graphics_backend.cpp">
+    <ClCompile Include="vulkan\core\vulkan_graphics_backend.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\vulkan_graphics_device.cpp">
+    <ClCompile Include="vulkan\core\vulkan_graphics_device.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Core_\vulkan_instance.cpp">
+    <ClCompile Include="vulkan\core\vulkan_instance.cpp">
       <Filter>ソース ファイル\Vulkan\Core</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Debug_\debug_utils.cpp">
+    <ClCompile Include="vulkan\debug\debug_utils.cpp">
       <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\GraphicsResource_\Material\material.cpp">
+    <ClCompile Include="vulkan\graphics_resource\texture.cpp">
       <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\GraphicsResource_\Model\model.cpp">
-      <Filter>ソース ファイル\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\GraphicsResource_\Shader\shader.cpp">
-      <Filter>ソース ファイル\Vulkan\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\GraphicsResource_\Shader\shader_stage.cpp">
-      <Filter>ソース ファイル\Vulkan\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\GraphicsResource_\texture.cpp">
-      <Filter>ソース ファイル\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\GraphicsResource_\texture_factory.cpp">
+    <ClCompile Include="vulkan\graphics_resource\texture_factory.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Loader_\model_loader.cpp">
+    <ClCompile Include="vulkan\loader\model_loader.cpp">
       <Filter>ソース ファイル\Vulkan\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Loader_\shader_loader.cpp">
+    <ClCompile Include="vulkan\loader\shader_loader.cpp">
       <Filter>ソース ファイル\Vulkan\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Loader_\simple_loader.cpp">
+    <ClCompile Include="vulkan\loader\simple_loader.cpp">
       <Filter>ソース ファイル\Simple</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\Loader_\texture_loader.cpp">
+    <ClCompile Include="vulkan\loader\texture_loader.cpp">
       <Filter>ソース ファイル\Vulkan\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\math\quaternion.cpp">
+      <Filter>ソース ファイル\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\math\ray.cpp">
+      <Filter>ソース ファイル\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\math\vector3.cpp">
+      <Filter>ソース ファイル\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\render_pipeline\pipeline_builder.cpp">
+      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\render_pipeline\pipeline_layout.cpp">
+      <Filter>ソース ファイル\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\render_pipeline\vulkan_render_pipeline.cpp">
+      <Filter>ソース ファイル\Vulkan\RenderPipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\render_pipeline\vulkan_texture_builder.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\graphics_resource\material\material.cpp">
+      <Filter>ソース ファイル\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\graphics_resource\model_\model.cpp">
+      <Filter>ソース ファイル\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\graphics_resource\shader\shader.cpp">
+      <Filter>ソース ファイル\Vulkan\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\graphics_resource\shader\shader_stage.cpp">
+      <Filter>ソース ファイル\Vulkan\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\render_pipeline\builder\camera_pipeline_builder.cpp">
+      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\render_pipeline\builder\descriptor_pipeline_builder.cpp">
+      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\render_pipeline\builder\model_pipeline_builder.cpp">
+      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\render_pipeline\builder\render_pass_pipeline_builder.cpp">
+      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\render_pipeline\builder\shader_pipeline_builder.cpp">
+      <Filter>ソース ファイル\Vulkan\RenderPipeline\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\service\draw_service\default_draw_service.cpp">
+      <Filter>ソース ファイル\Vulkan\DrawService</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\service\draw_service\draw_service.cpp">
+      <Filter>ソース ファイル\Vulkan\DrawService</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\service\hierarchy_service\default_hierarchy_service.cpp">
+      <Filter>ソース ファイル\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\service\hierarchy_service\hierarchy_service.cpp">
+      <Filter>ソース ファイル\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="main_loop\use_case\simple_main_code.cpp">
+      <Filter>ソース ファイル\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="main_loop\use_case\simple_main_loop.cpp">
+      <Filter>ソース ファイル\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="main_loop\use_case\simple_shader_parameter.cpp">
+      <Filter>ソース ファイル\Vulkan\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="main_loop\use_case\vulkan_sample_loop01.cpp">
+      <Filter>ソース ファイル\Simple</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,257 +260,257 @@
     <ClInclude Include="stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="main_loop\Definition\user_define.h">
+    <ClInclude Include="vulkan\allocator\Allocator.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\allocator\custom_allocator.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\command_buffer\buffer.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\command_buffer\command_buffer.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\command_buffer\CommandPool.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\command_buffer\drawable_buffer.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\command_buffer\uniform_buffer.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\component\behaviour.h">
+      <Filter>ヘッダー ファイル\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\component\camera.h">
+      <Filter>ヘッダー ファイル\Vulkan\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\component\model_renderer.h">
+      <Filter>ヘッダー ファイル\Vulkan\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\component\transform.h">
+      <Filter>ヘッダー ファイル\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\graphics_backend.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\graphics_device.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\graphics_instance.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\image_view.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\logical_device.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\physical_device.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\physical_device_owner.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\queue_family.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\surface.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\swapchain.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\swapchain_image_views.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\vkUniqueObjects.h">
+      <Filter>リソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\vulkan_device.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\vulkan_graphics_backend.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\vulkan_graphics_device.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\vulkan_instance.h">
+      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\core\window.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\debug\debug_utils.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\graphics_resource\texture.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\graphics_resource\texture_factory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="main_loop\Interface\imain_code.h">
+    <ClInclude Include="vulkan\loader\binaryLoader.h">
+      <Filter>リソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\loader\iloader.h">
       <Filter>ヘッダー ファイル\Simple\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="main_loop\Interface\imain_loop.h">
-      <Filter>ヘッダー ファイル\Simple\Interface</Filter>
+    <ClInclude Include="vulkan\loader\model_loader.h">
+      <Filter>ヘッダー ファイル\Vulkan\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="main_loop\UseCase\simple_main_code.h">
+    <ClInclude Include="vulkan\loader\shader_loader.h">
+      <Filter>ヘッダー ファイル\Vulkan\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\loader\simple_loader.h">
       <Filter>ヘッダー ファイル\Simple</Filter>
     </ClInclude>
-    <ClInclude Include="main_loop\UseCase\simple_main_loop.h">
-      <Filter>ヘッダー ファイル\Simple</Filter>
+    <ClInclude Include="vulkan\loader\texture_loader.h">
+      <Filter>ヘッダー ファイル\Vulkan\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="main_loop\UseCase\simple_shader_parameter.h">
-      <Filter>ヘッダー ファイル\Vulkan\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="main_loop\UseCase\vulkan_sample_loop01.h">
-      <Filter>ヘッダー ファイル\Simple</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Math\hittable.h">
+    <ClInclude Include="vulkan\math\hittable.h">
       <Filter>ヘッダー ファイル\RayTracing</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Math\quaternion.h">
+    <ClInclude Include="vulkan\math\quaternion.h">
       <Filter>ヘッダー ファイル\Core\Math</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Math\ray.h">
+    <ClInclude Include="vulkan\math\ray.h">
       <Filter>ヘッダー ファイル\RayTracing</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Math\vector3.h">
+    <ClInclude Include="vulkan\math\vector3.h">
       <Filter>ヘッダー ファイル\Core\Math</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Primitive\vertex.h">
+    <ClInclude Include="vulkan\primitive\vertex.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\Builder\camera_pipeline_builder.h">
-      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\Builder\descriptor_pipeline_builder.h">
-      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\Builder\model_pipeline_builder.h">
-      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\Builder\render_pass_pipeline_builder.h">
-      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\Builder\shader_pipeline_builder.h">
-      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\irender_pipeline.h">
+    <ClInclude Include="vulkan\render_pipeline\irender_pipeline.h">
       <Filter>ヘッダー ファイル\Vulkan\Core\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\pipeline_builder.h">
+    <ClInclude Include="vulkan\render_pipeline\pipeline_builder.h">
       <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\pipeline_layout.h">
+    <ClInclude Include="vulkan\render_pipeline\pipeline_layout.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\vulkan_render_pipeline.h">
+    <ClInclude Include="vulkan\render_pipeline\vulkan_render_pipeline.h">
       <Filter>ヘッダー ファイル\Vulkan\RenderPipeline</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\RenderPipeline\vulkan_texture_builder.h">
+    <ClInclude Include="vulkan\render_pipeline\vulkan_texture_builder.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Service\DrawService\default_draw_service.h">
-      <Filter>ヘッダー ファイル\Vulkan\DrawService</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Service\DrawService\draw_service.h">
-      <Filter>ヘッダー ファイル\Vulkan\DrawService</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Service\DrawService\idraw_service.h">
-      <Filter>ヘッダー ファイル\Vulkan\DrawService</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Service\HierarchyService\default_hierarchy_service.h">
+    <ClInclude Include="vulkan\utils\macro.h">
       <Filter>ヘッダー ファイル\Core</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Service\HierarchyService\hierarchy_service.h">
-      <Filter>ヘッダー ファイル\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Service\HierarchyService\ihierarchy_service.h">
-      <Filter>ヘッダー ファイル\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Utils\macro.h">
-      <Filter>ヘッダー ファイル\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Utils\memory_utils.h">
+    <ClInclude Include="vulkan\utils\memory_utils.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Utils\vulkan_utils.h">
+    <ClInclude Include="vulkan\utils\vulkan_utils.h">
       <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Allocator_2\Allocator.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Allocator_2\custom_allocator.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\CommandBuffer_2\buffer.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\CommandBuffer_2\command_buffer.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\CommandBuffer_2\CommandPool.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\CommandBuffer_2\drawable_buffer.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\CommandBuffer_2\uniform_buffer.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Component_\behaviour.h">
-      <Filter>ヘッダー ファイル\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Component_\camera.h">
-      <Filter>ヘッダー ファイル\Vulkan\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Component_\model_renderer.h">
-      <Filter>ヘッダー ファイル\Vulkan\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Component_\transform.h">
-      <Filter>ヘッダー ファイル\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\igraphics_backend.h">
+    <ClInclude Include="vulkan\core\interface\igraphics_backend.h">
       <Filter>ヘッダー ファイル\Vulkan\Core\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\igraphics_device.h">
+    <ClInclude Include="vulkan\core\interface\igraphics_device.h">
       <Filter>ヘッダー ファイル\Vulkan\Core\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\igraphics_handle.h">
+    <ClInclude Include="vulkan\core\interface\igraphics_handle.h">
       <Filter>ヘッダー ファイル\Vulkan\Core\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\igraphics_instance.h">
+    <ClInclude Include="vulkan\core\interface\igraphics_instance.h">
       <Filter>ヘッダー ファイル\Vulkan\Core\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\isurface.h">
+    <ClInclude Include="vulkan\core\interface\isurface.h">
       <Filter>ヘッダー ファイル\Vulkan\Core\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\iswapchain.h">
+    <ClInclude Include="vulkan\core\interface\iswapchain.h">
       <Filter>ヘッダー ファイル\Vulkan\Core\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\itexture.h">
+    <ClInclude Include="vulkan\core\interface\itexture.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\itexture_builder.h">
+    <ClInclude Include="vulkan\core\interface\itexture_builder.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\itexture_creator.h">
+    <ClInclude Include="vulkan\core\interface\itexture_creator.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\Interface\iwindow.h">
+    <ClInclude Include="vulkan\core\interface\iwindow.h">
       <Filter>ヘッダー ファイル\Vulkan\Core\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\graphics_backend.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\graphics_device.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\graphics_instance.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\image_view.h">
+    <ClInclude Include="vulkan\graphics_resource\material\material.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\logical_device.h">
+    <ClInclude Include="vulkan\graphics_resource\model_\model.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\physical_device.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\physical_device_owner.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\queue_family.h">
+    <ClInclude Include="vulkan\graphics_resource\shader\ishader_parameter.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Core_\surface.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\swapchain.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\swapchain_image_views.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\vkUniqueObjects.h">
-      <Filter>リソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\vulkan_device.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\vulkan_graphics_backend.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\vulkan_graphics_device.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\vulkan_instance.h">
-      <Filter>ヘッダー ファイル\Vulkan\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Core_\window.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\Debug_\debug_utils.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\GraphicsResource_\Material\material.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\GraphicsResource_\Model\model.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\GraphicsResource_\Shader\ishader_parameter.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\GraphicsResource_\Shader\shader.h">
+    <ClInclude Include="vulkan\graphics_resource\shader\shader.h">
       <Filter>ヘッダー ファイル\Vulkan\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\GraphicsResource_\Shader\shader_stage.h">
+    <ClInclude Include="vulkan\graphics_resource\shader\shader_stage.h">
       <Filter>ヘッダー ファイル\Vulkan\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\GraphicsResource_\Texture\loadable_texture.h">
+    <ClInclude Include="vulkan\graphics_resource\texture\loadable_texture.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\GraphicsResource_\texture.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    <ClInclude Include="vulkan\render_pipeline\builder\camera_pipeline_builder.h">
+      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\GraphicsResource_\texture_factory.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="vulkan\render_pipeline\builder\descriptor_pipeline_builder.h">
+      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Loader_\binaryLoader.h">
-      <Filter>リソース ファイル</Filter>
+    <ClInclude Include="vulkan\render_pipeline\builder\model_pipeline_builder.h">
+      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Loader_\iloader.h">
-      <Filter>ヘッダー ファイル\Simple\Interface</Filter>
+    <ClInclude Include="vulkan\render_pipeline\builder\render_pass_pipeline_builder.h">
+      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Loader_\model_loader.h">
-      <Filter>ヘッダー ファイル\Vulkan\Loader</Filter>
+    <ClInclude Include="vulkan\render_pipeline\builder\shader_pipeline_builder.h">
+      <Filter>ヘッダー ファイル\Vulkan\RenderPipeline\Builder</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Loader_\shader_loader.h">
-      <Filter>ヘッダー ファイル\Vulkan\Loader</Filter>
+    <ClInclude Include="vulkan\service\draw_service\default_draw_service.h">
+      <Filter>ヘッダー ファイル\Vulkan\DrawService</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Loader_\simple_loader.h">
+    <ClInclude Include="vulkan\service\draw_service\draw_service.h">
+      <Filter>ヘッダー ファイル\Vulkan\DrawService</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\service\draw_service\idraw_service.h">
+      <Filter>ヘッダー ファイル\Vulkan\DrawService</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\service\hierarchy_service\default_hierarchy_service.h">
+      <Filter>ヘッダー ファイル\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\service\hierarchy_service\hierarchy_service.h">
+      <Filter>ヘッダー ファイル\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\service\hierarchy_service\ihierarchy_service.h">
+      <Filter>ヘッダー ファイル\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="main_loop\use_case\simple_main_code.h">
       <Filter>ヘッダー ファイル\Simple</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\Loader_\texture_loader.h">
-      <Filter>ヘッダー ファイル\Vulkan\Loader</Filter>
+    <ClInclude Include="main_loop\use_case\simple_main_loop.h">
+      <Filter>ヘッダー ファイル\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="main_loop\use_case\simple_shader_parameter.h">
+      <Filter>ヘッダー ファイル\Vulkan\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="main_loop\use_case\vulkan_sample_loop01.h">
+      <Filter>ヘッダー ファイル\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="main_loop\interface\imain_code.h">
+      <Filter>ヘッダー ファイル\Simple\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="main_loop\interface\imain_loop.h">
+      <Filter>ヘッダー ファイル\Simple\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="main_loop\definition\user_define.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -519,10 +519,10 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="main_loop\Shader\Shader.frag">
+    <None Include="main_loop\shader\Shader.frag">
       <Filter>ソース ファイル</Filter>
     </None>
-    <None Include="main_loop\Shader\Shader.vert">
+    <None Include="main_loop\shader\Shader.vert">
       <Filter>ソース ファイル</Filter>
     </None>
   </ItemGroup>
