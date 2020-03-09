@@ -162,12 +162,6 @@
     <ClCompile Include="vulkan\debug\debug_utils.cpp">
       <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="vulkan\graphics_resource\texture.cpp">
-      <Filter>ソース ファイル\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\graphics_resource\texture_factory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="vulkan\loader\model_loader.cpp">
       <Filter>ソース ファイル\Vulkan\Loader</Filter>
     </ClCompile>
@@ -202,9 +196,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="vulkan\graphics_resource\material\material.cpp">
-      <Filter>ソース ファイル\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="vulkan\graphics_resource\model_\model.cpp">
       <Filter>ソース ファイル\Vulkan</Filter>
     </ClCompile>
     <ClCompile Include="vulkan\graphics_resource\shader\shader.cpp">
@@ -251,6 +242,15 @@
     </ClCompile>
     <ClCompile Include="main_loop\use_case\vulkan_sample_loop01.cpp">
       <Filter>ソース ファイル\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\graphics_resource\model\model.cpp">
+      <Filter>ソース ファイル\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\graphics_resource\texture\texture.cpp">
+      <Filter>ソース ファイル\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="vulkan\graphics_resource\texture\texture_factory.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,12 +347,6 @@
     <ClInclude Include="vulkan\debug\debug_utils.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\graphics_resource\texture.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="vulkan\graphics_resource\texture_factory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="vulkan\loader\binaryLoader.h">
       <Filter>リソース ファイル</Filter>
     </ClInclude>
@@ -443,9 +437,6 @@
     <ClInclude Include="vulkan\graphics_resource\material\material.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="vulkan\graphics_resource\model_\model.h">
-      <Filter>ヘッダー ファイル\Vulkan</Filter>
-    </ClInclude>
     <ClInclude Include="vulkan\graphics_resource\shader\ishader_parameter.h">
       <Filter>ヘッダー ファイル\Vulkan</Filter>
     </ClInclude>
@@ -510,6 +501,15 @@
       <Filter>ヘッダー ファイル\Simple\Interface</Filter>
     </ClInclude>
     <ClInclude Include="main_loop\definition\user_define.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\graphics_resource\model\model.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\graphics_resource\texture\texture.h">
+      <Filter>ヘッダー ファイル\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan\graphics_resource\texture\texture_factory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

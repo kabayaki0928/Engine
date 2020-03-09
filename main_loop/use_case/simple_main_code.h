@@ -1,7 +1,7 @@
 #pragma once
 
-#include "imain_code.h"
-#include "iloader.h"
+#include "../main_loop/interface/imain_code.h"
+#include "../vulkan/loader/iloader.h"
 
 namespace vengine
 {
@@ -11,6 +11,9 @@ namespace vengine
 		class ILoader;
 		class Model;
 	}
+
+	class Shader;
+	class Texture;
     
     class SimpleMainCode final : public rengine::IMainCode
     {

@@ -1,5 +1,9 @@
 #include "simple_main_loop.h"
 
+#include "../vulkan/core/interface/igraphics_backend.h"
+#include "../vulkan/core/interface/irender_pipeline.h"
+#include "../vulkan/core/interface/igraphics_backend.h"
+
 namespace rengine
 {
     /// <summary>

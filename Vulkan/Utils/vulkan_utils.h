@@ -10,9 +10,9 @@
 // データ的にはconstruct injectionしていくのがよさそうな雰囲気
 // main層(Serviceとして切り出しても可)から渡すものはGraphicsBackEnd
 
-#include "vulkan_graphics_backend.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
 #include "command_buffer.h"
-#include "user_define.h"
+#include "../main_loop/definition/user_define.h"
 
 namespace vengine
 {

@@ -4,7 +4,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
-#include "igraphics_instance.h"
+#include "../vulkan/core/interface/igraphics_instance.h"
 
 namespace vengine
 {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "quaternion.h"
-#include "vector3.h"
+#include "../math/vector3.h"
+#include "../math/quaternion.h"
 
 // rengineì‡Ç≈Ç‡Ç¢Ç¢Ç©Ç‡ÅcÅH
 namespace cengine

@@ -3,8 +3,8 @@
 #define TINYOBJLOADER_IMPLEMENTATION
 #include <tiny_obj_loader.h>
 
-#include "vulkan_graphics_backend.h"
-#include "shader.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
+#include "../vulkan/graphics_resource/shader/shader.h"
 
 namespace vengine
 {

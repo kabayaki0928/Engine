@@ -1,11 +1,12 @@
-#include "stdafx.h"
+
 #include "vulkan_sample_loop01.h"
 
-#include "vulkan_graphics_backend.h"
-#include "vulkan_render_pipeline.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
+#include "../vulkan/render_pipeline/vulkan_render_pipeline.h"
+#include "../vulkan/render_pipeline/irender_pipeline.h"
 #include "simple_main_code.h"
 
-#include "user_define.h"
+#include "../definition/user_define.h"
 
 namespace vengine
 {

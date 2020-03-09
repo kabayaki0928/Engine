@@ -1,16 +1,16 @@
 #include "vulkan_render_pipeline.h"
 
-#include "vulkan_utils.h"
+#include "../vulkan/utils/vulkan_utils.h"
 #include "vertex.h"
-#include "shader.h"
+#include "../vulkan/graphics_resource/shader/shader.h"
 #include "uniform_buffer.h"
 #include "queue_family.h"
 
 #include "texture.h"
 #include "ishader_parameter.h"
-#include "shader.h""
-#include "material.h"
-#include "model.h"
+#include "../vulkan/graphics_resource/shader/shader.h""
+#include "../vulkan/graphics_resource/material/material.h"
+#include "../vulkan/graphics_resource/model/model.h"
 #include "model_renderer.h"
 
 #include "camera.h"
@@ -21,7 +21,7 @@
 #include "render_pass_pipeline_builder.h"
 #include "descriptor_pipeline_builder.h"
 
-#include "vulkan_graphics_backend.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
 
 namespace vengine
 {

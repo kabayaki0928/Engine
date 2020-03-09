@@ -1,7 +1,7 @@
 #include "render_pass_pipeline_builder.h"
 
-#include "vulkan_graphics_backend.h"
-#include "vulkan_utils.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
+#include "../vulkan/utils/vulkan_utils.h"
 
 namespace vengine
 {

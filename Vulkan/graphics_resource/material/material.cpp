@@ -1,7 +1,6 @@
-#include "stdafx.h"
-#include "material.h"
+#include "../vulkan/graphics_resource/material/material.h"
 
-#include "shader.h"
+#include "../vulkan/graphics_resource/shader/shader.h"
 #include "texture.h"
 
 // GraphicsResourceフォルダ以下に存在するクラスに関しては

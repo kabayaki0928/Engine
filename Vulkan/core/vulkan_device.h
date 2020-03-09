@@ -1,6 +1,6 @@
 #pragma once
 
-#include "igraphics_device.h"
+#include "interface/igraphics_device.h"
 
 namespace vengine
 {

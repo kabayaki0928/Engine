@@ -189,11 +189,11 @@
     <ClCompile Include="vulkan\render_pipeline\builder\shader_pipeline_builder.cpp" />
     <ClCompile Include="main_loop\use_case\simple_shader_parameter.cpp" />
     <ClCompile Include="main_loop\use_case\simple_main_code.cpp" />
-    <ClCompile Include="vulkan\graphics_resource\texture_factory.cpp" />
+    <ClCompile Include="vulkan\graphics_resource\texture\texture_factory.cpp" />
     <ClCompile Include="vulkan\loader\texture_loader.cpp" />
     <ClCompile Include="vulkan\core\logical_device.cpp" />
     <ClCompile Include="main_loop\main.cpp" />
-    <ClCompile Include="vulkan\graphics_resource\model_\model.cpp" />
+    <ClCompile Include="vulkan\graphics_resource\model\model.cpp" />
     <ClCompile Include="vulkan\render_pipeline\builder\model_pipeline_builder.cpp" />
     <ClCompile Include="vulkan\core\physical_device.cpp" />
     <ClCompile Include="vulkan\core\physical_device_owner.cpp" />
@@ -206,7 +206,7 @@
     <ClCompile Include="vulkan\graphics_resource\shader\shader_stage.cpp" />
     <ClCompile Include="vulkan\loader\simple_loader.cpp" />
     <ClCompile Include="main_loop\use_case\simple_main_loop.cpp" />
-    <ClCompile Include="vulkan\graphics_resource\texture.cpp" />
+    <ClCompile Include="vulkan\graphics_resource\texture\texture.cpp" />
     <ClCompile Include="vulkan\render_pipeline\vulkan_texture_builder.cpp" />
     <ClCompile Include="vulkan\component\transform.cpp" />
     <ClCompile Include="vulkan\math\vector3.cpp" />
@@ -285,8 +285,8 @@
     <ClInclude Include="vulkan\loader\simple_loader.h" />
     <ClInclude Include="main_loop\use_case\simple_main_loop.h" />
     <ClInclude Include="main_loop\use_case\simple_shader_parameter.h" />
-    <ClInclude Include="vulkan\graphics_resource\texture.h" />
-    <ClInclude Include="vulkan\graphics_resource\texture_factory.h" />
+    <ClInclude Include="vulkan\graphics_resource\texture\texture.h" />
+    <ClInclude Include="vulkan\graphics_resource\texture\texture_factory.h" />
     <ClInclude Include="vulkan\loader\texture_loader.h" />
     <ClInclude Include="vulkan\render_pipeline\vulkan_texture_builder.h" />
     <ClInclude Include="vulkan\component\transform.h" />
@@ -296,7 +296,7 @@
     <ClInclude Include="main_loop\definition\user_define.h" />
     <ClInclude Include="vulkan\math\hittable.h" />
     <ClInclude Include="vulkan\core\image_view.h" />
-    <ClInclude Include="vulkan\graphics_resource\model_\model.h" />
+    <ClInclude Include="vulkan\graphics_resource\model\model.h" />
     <ClInclude Include="vulkan\core\queue_family.h" />
     <ClInclude Include="vulkan\math\ray.h" />
     <ClInclude Include="resource.h" />

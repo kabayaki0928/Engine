@@ -1,13 +1,16 @@
+#include "../../stdafx.h"
+
 #include "simple_main_code.h"
 
-#include "vulkan_graphics_backend.h"
-#include "simple_loader.h"
-#include "model.h"
-#include "shader.h"
-#include "texture.h"
-#include "vertex.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
+#include "../vulkan/loader/iloader.h"
+#include "../vulkan/loader/simple_loader.h"
+#include "../vulkan/graphics_resource/model/model.h"
+#include "../vulkan/graphics_resource/shader/ishader_parameter.h"
+#include "../vulkan/graphics_resource/shader/shader.h"
+#include "../vulkan/graphics_resource/texture/texture.h"
+#include "../vulkan/primitive/vertex.h"
 
-#include "ishader_parameter.h"
 #include "simple_shader_parameter.h"
 
 using SharedModel = std::shared_ptr<rengine::Model>;
@@ -19,7 +22,7 @@ namespace vengine
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    SimpleMainCode::SimpleMainCode(std::shared_ptr<ILoader> const loader)
+    SimpleMainCode::SimpleMainCode(std::shared_ptr<rengine::ILoader> const loader)
     : loader_(loader),
       model_(nullptr),
       shader_(nullptr) {

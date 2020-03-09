@@ -1,6 +1,6 @@
 #include "default_draw_service.h"
 
-#include "model_renderer.h"
+#include "../vulkan/component/model_renderer.h"
 #include "idraw_service.h"
 
 namespace rengine

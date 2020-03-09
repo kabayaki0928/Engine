@@ -1,11 +1,11 @@
 #include "logical_device.h"
 
-#include "vulkan_graphics_backend.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
 #include "physical_device.h"
 #include "queue_family.h"
 
-#include "vulkan_utils.h"
-#include "user_define.h"
+#include "../vulkan/utils/vulkan_utils.h"
+#include "../main_loop/definition/user_define.h"
 
 namespace vengine
 {

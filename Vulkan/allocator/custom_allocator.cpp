@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "custom_allocator.h"
 
 namespace vengine

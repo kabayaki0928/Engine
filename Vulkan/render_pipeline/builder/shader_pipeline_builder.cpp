@@ -1,6 +1,6 @@
 #include "shader_pipeline_builder.h"
 
-#include "shader.h"
+#include "../vulkan/graphics_resource/shader/shader.h"
 
 namespace vengine
 {

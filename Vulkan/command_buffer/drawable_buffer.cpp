@@ -1,9 +1,9 @@
 #include "drawable_buffer.h"
 
 #include "buffer.h"
-#include "Vertex.h"
-#include "vulkan_graphics_backend.h"
-#include "vulkan_utils.h"
+#include "../primitive/vertex.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
+#include "../vulkan/utils/vulkan_utils.h"
 
 namespace vengine
 {

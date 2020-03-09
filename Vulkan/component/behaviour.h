@@ -17,7 +17,7 @@ namespace cengine
     {
     protected:
         Transform transform_;
-        std::vector<std::shared_ptr<Component>> components_;
+        SharedComponentList components_;
         bool is_active_;
     public:
         Behaviour();
@@ -31,7 +31,7 @@ namespace cengine
         SharedComponent addComponent(SharedComponent const component);
         template<typename T>
         T getComponent();
-        template<typename T>
-        std::iterator<T> getComponents();
+        //template<typename T>
+        //std::iterator<T> getComponents();
     };
 } // cengine

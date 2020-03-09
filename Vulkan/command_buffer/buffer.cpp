@@ -1,9 +1,9 @@
 #include "buffer.h"
 
 #include "command_buffer.h"
-#include "memory_utils.h"
-#include "vulkan_graphics_backend.h"
-#include "vulkan_utils.h"
+#include "../vulkan/utils/memory_utils.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
+#include "../utils/vulkan_utils.h"
 
 namespace vengine
 {

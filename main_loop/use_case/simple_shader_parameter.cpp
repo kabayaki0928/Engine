@@ -1,7 +1,7 @@
 #include "simple_shader_parameter.h"
 
-#include "macro.h"
-#include "vertex.h"
+#include "../vulkan/utils/macro.h"
+#include "../vulkan/primitive/vertex.h"
 
 namespace vengine
 {

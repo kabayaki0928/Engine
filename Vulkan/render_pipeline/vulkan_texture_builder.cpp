@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "vulkan_texture_builder.h"
 
 

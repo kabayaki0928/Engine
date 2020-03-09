@@ -1,7 +1,7 @@
 #include "camera_pipeline_builder.h"
 
-#include "camera.h"
-#include "vulkan_graphics_backend.h"
+#include "../vulkan/component/camera.h"
+#include "../vulkan/core/vulkan_graphics_backend.h"
 
 namespace vengine
 {

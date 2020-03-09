@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ishader_parameter.h"
+#include "../vulkan/graphics_resource/shader/ishader_parameter.h"
 
 namespace vengine
 {
@@ -17,8 +17,8 @@ namespace vengine
     public:
         SimpleShaderParameter();
 
-        virtual const VkVertexInputBindingDescription& getBindingDescription() const noexcept { return binding_; }
-        virtual const VertexInputAttributeDescription& getAttributeDescription() const noexcept { return attributes_; }
+        const VkVertexInputBindingDescription& getBindingDescription() const noexcept override { return binding_; }
+        const VertexInputAttributeDescription& getAttributeDescription() const noexcept override { return attributes_; }
     };
 } // vengine
 

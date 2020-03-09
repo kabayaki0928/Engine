@@ -1,5 +1,5 @@
 #include "behaviour.h"
-#include "hierarchy_service.h"
+#include "../service/hierarchy_service/hierarchy_service.h"
 #include "transform.h"
 #include "component.h"
 

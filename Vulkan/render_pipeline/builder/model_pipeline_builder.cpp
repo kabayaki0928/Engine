@@ -1,6 +1,6 @@
 #include "model_pipeline_builder.h"
 
-#include "uniform_buffer.h"
+#include "../vulkan/command_buffer/uniform_buffer.h"
 
 namespace vengine
 {

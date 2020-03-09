@@ -1,8 +1,8 @@
 #include "simple_loader.h"
 
-#include "model.h"
+#include "../vulkan/graphics_resource/model/model.h"
 #include "model_loader.h"
-#include "shader.h"
+#include "../vulkan/graphics_resource/shader/shader.h"
 #include "shader_loader.h"
 #include "texture.h"
 #include "texture_loader.h"

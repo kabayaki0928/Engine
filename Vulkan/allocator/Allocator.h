@@ -7,7 +7,7 @@
 class Allocator
 {
 public:
-    operator VkAllocationCallbacks* () {
+	operator VkAllocationCallbacks* () {
         return nullptr;
     }
     operator const VkAllocationCallbacks* () const {

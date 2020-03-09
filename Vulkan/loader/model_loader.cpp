@@ -1,7 +1,7 @@
 #include "model_loader.h"
 
 #include "drawable_buffer.h"
-#include "model.h"
+#include "../vulkan/graphics_resource/model/model.h"
 #include "vertex.h"
 
 namespace vengine

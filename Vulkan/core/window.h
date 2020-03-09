@@ -2,12 +2,12 @@
 #define WINDOWH
 
 #include <GLFW/glfw3.h>
-#include "igraphics_handle.h"
-#include "iwindow.h"
-#include "vulkan_graphics_backend.h"
+#include "../vulkan/core/interface/iwindow.h"
 
 namespace vengine
 {
+	class VulkanGraphicsBackend;
+	
     /// <summary>
     /// WindowƒNƒ‰ƒX
     /// </summary>

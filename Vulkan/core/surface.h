@@ -4,7 +4,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
-#include "isurface.h"
+#include "interface/isurface.h"
 
 namespace vengine
 {

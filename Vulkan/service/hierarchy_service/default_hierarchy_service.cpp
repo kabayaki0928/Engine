@@ -1,6 +1,5 @@
-#include "stdafx.h"
 #include "default_hierarchy_service.h"
-#include "behaviour.h"
+#include "../vulkan/component/behaviour.h"
 
 namespace cengine
 {

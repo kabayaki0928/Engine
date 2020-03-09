@@ -3,19 +3,17 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
-#include "igraphics_backend.h"
-#include "iwindow.h"
-#include "igraphics_instance.h"
-#include "igraphics_device.h"
-#include "isurface.h"
-#include "iswapchain.h"
+#include "../vulkan/core/interface/igraphics_backend.h"
+#include "../vulkan/core/interface/iwindow.h"
+#include "../vulkan/core/interface/igraphics_instance.h"
+#include "../vulkan/core/interface/igraphics_device.h"
+#include "../vulkan/core/interface/isurface.h"
+#include "../vulkan/core/interface/iswapchain.h"
 
-#include "custom_allocator.h"
-#include "graphics_device.h"
-#include "graphics_instance.h"
+#include "../vulkan/allocator/custom_allocator.h"
+
 #include "vulkan_instance.h"
 #include "vulkan_device.h"
-#include "physical_device_owner.h"
 #include "physical_device.h"
 #include "logical_device.h"
 #include "surface.h"

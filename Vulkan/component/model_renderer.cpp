@@ -1,7 +1,7 @@
 #include "model_renderer.h"
 
-#include "model.h"
-#include "material.h"
+#include "../vulkan/graphics_resource/model/model.h"
+#include "../vulkan/graphics_resource/material/material.h"
 
 namespace rengine
 {

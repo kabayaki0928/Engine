@@ -1,12 +1,13 @@
 #pragma once
 
-#include "imain_loop.h"
-#include "igraphics_backend.h"
-#include "irender_pipeline.h"
-#include "imain_code.h"
+#include "../main_loop/interface/imain_loop.h"
 
 namespace rengine
 {
+	class IGraphicsBackend;
+	class IRenderPipeline;
+	class IMainCode;
+
     class SimpleMainLoop final : public IMainLoop
     {
     private:
@@ -22,7 +23,7 @@ namespace rengine
         );
         ~SimpleMainLoop();
         void initialize() override;
-        void run();
+        void run() override;
         
     };
 } // rengine

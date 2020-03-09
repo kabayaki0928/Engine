@@ -1,12 +1,14 @@
 #pragma once
 
-#include "imain_loop.h"
-#include "igraphics_backend.h"
-#include "irender_pipeline.h"
-#include "imain_code.h"
+#include "../main_loop/interface/imain_loop.h"
 
 namespace vengine
 {
+	namespace rengine
+	{
+		class IRenderPipeline;
+		class IMainCode;
+	}
     class VulkanGraphicsBackend;
 
     class VulkanSampleLoop01 final : public rengine::IMainLoop

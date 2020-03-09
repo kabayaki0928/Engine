@@ -82,7 +82,7 @@ namespace vengine
             void const* mem_cpy_data,
             Data out_data
         );
-    }
-} // vengine
+	};
+}; // vengine
 
 #endif
