@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VK_SDK_PATH)\Include;C:\Users\user\Vulkan\glm;C:\Users\user\Vulkan\glfw-3.3.bin.WIN64\include;C:\Users\user\Vulkan\stb;C:\Users\user\Vulkan\tinyobjloader;$(SolutionDir)\glfw\include;$(SolutionDir)\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VK_SDK_PATH)\Include;$(SolutionDir)\stb;C:\Users\user\Vulkan\glm;C:\Users\user\Vulkan\glfw-3.3.bin.WIN64\include;C:\Users\user\Vulkan\stb;C:\Users\user\Vulkan\tinyobjloader;$(SolutionDir)\glfw\include;$(SolutionDir)\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
